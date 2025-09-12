@@ -1,0 +1,16 @@
+{
+  "employee_id": "TH-0001",
+  "month": "092025",
+  "employee_financial_history": [
+    {
+      "id": "BON-1757418173574-0001",
+      "employee_id": "TH-0001",
+      "type": "Bonus",
+      "amount": 2300,
+      "date": "2025-09-09",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, completed) for HR16AD2820.",
+      "visit_type": "View car in another province over 100 km (overnight, completed)",
+      "license_plate": "HR16AD2820"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+{
+  "employee_id": "TH-0001",
+  "month": "082025",
+  "employee_financial_history": [
+    {
+      "employee_id": "TH-0001",
+      "type": "Bonus",
+      "amount": 1100,
+      "date": "2025-08-12",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (no overnight, not completed) for No Booking. Go outside to view car",
+      "id": "ADJ-1757227529340",
+      "visit_type": "View car in another province over 100 km (no overnight, not completed)",
+      "license_plate": "No Booking"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "P002",
+  "vehicle": "Honda Civic",
+  "date": "2024-07-03",
+  "purchasePrice": "฿780,000",
+  "finalPrice": "฿800,000",
+  "license_plate": "2CD-5678",
+  "seller": "Honda Ayutthaya",
+  "paymentType": "Full Payment",
+  "status": "Sold",
+  "fullData": {
+    "brand": "Honda",
+    "model": "Civic",
+    "year": "2022",
+    "fuelType": [
+      "Petrol"
+    ],
+    "vehiclePrice": 780000,
+    "taxFee": 8000,
+    "insuranceFee": 12000,
+    "deliveryFee": 0,
+    "licensePlateChangeFee": 0,
+    "financingPayoff": 0,
+    "grandTotal": 800000
+  },
+  "maintenance_history": [],
+  "financial_history": [
+    {
+      "transaction_id": "TXN-2025-07-003",
+      "type": "income",
+      "category": "Customer Transfer",
+      "license_plate": "2CD-5678",
+      "amount": 950000,
+      "currency": "THB",
+      "date": "2025-07-05",
+      "remarks": "Sale of Honda Civic",
+      "uploaded_file": null
+    }
+  ],
+  "sale_details": {
+    "sale_id": "SALE-2025-07-001",
+    "buyer": {
+      "name": "Jane Doe",
+      "contact": "081-111-2222",
+      "address": "Nonthaburi",
+      "id_proof": null
+    },
+    "sale_details": {
+      "sale_price": 950000,
+      "sale_date": "2025-07-05",
+      "payment_method": "Cash"
+    },
+    "vehicle_related": {},
+    "documents": []
+  }
+}

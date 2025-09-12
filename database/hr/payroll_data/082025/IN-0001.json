@@ -1,0 +1,15 @@
+{
+  "employee_id": "IN-0001",
+  "month": "082025",
+  "employee_financial_history": [
+    {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 10000,
+      "date": "2025-08-07",
+      "installments": 2,
+      "remarks": "",
+      "id": "ADJ-1757424436813"
+    }
+  ]
+}

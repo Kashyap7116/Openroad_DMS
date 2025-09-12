@@ -1,0 +1,68 @@
+{
+  "employee_id": "IN-0001",
+  "name": "Vinay Kumar",
+  "photo": "/uploads/hr/employees/IN-0001/photo/1757417806536-WhatsAppImage2025-02-12at22.21.41_678394d3.jpg",
+  "base_salary": 50000,
+  "present_days": 25,
+  "working_days": 30,
+  "prorated_salary": 41666.66666666667,
+  "raw_ot_hours": 17.5,
+  "payable_ot_hours": 26.25,
+  "ot_pay": 4861.111111111111,
+  "bonus": 0,
+  "advance_given_this_period": 0,
+  "deductions": [],
+  "net_salary": 46527.77777777778,
+  "calculation_details": {
+    "base_hourly_rate": 185.1851851851852,
+    "grade": 4,
+    "department": "IT",
+    "position": "Manager"
+  },
+  "attendance_summary": {
+    "present": 25,
+    "late": 9,
+    "absent": 5,
+    "leave": 0,
+    "holiday": 0
+  },
+  "employee_financial_history": [
+    {
+      "id": "repay-ADJ-1757424436813-2",
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 5000,
+      "date": "2025-09-21",
+      "remarks": "Advance Installment 2/2"
+    }
+  ],
+  "all_time_financial_history": [
+    {
+      "id": "BON-1757418173545-0001",
+      "employee_id": "IN-0001",
+      "type": "Bonus",
+      "amount": 2300,
+      "date": "2025-09-09",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, completed) for HR16AD2820.",
+      "visit_type": "View car in another province over 100 km (overnight, completed)",
+      "license_plate": "HR16AD2820"
+    },
+    {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 20000,
+      "date": "2025-09-09",
+      "installments": 4,
+      "remarks": "Family Expanse",
+      "id": "ADJ-1757419801155"
+    },
+    {
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 2000,
+      "date": "2025-09-09",
+      "remarks": "late comming",
+      "id": "ADJ-1757422198241"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+
+[
+  {
+    "name": "Admin",
+    "description": "Full access to all modules and user management.",
+    "modules": [
+      "Dashboard",
+      "Purchase",
+      "Sales",
+      "Finance",
+      "Maintenance",
+      "HR",
+      "Reports",
+      "Alerts",
+      "Admin"
+    ]
+  },
+  {
+    "name": "Manager",
+    "description": "Access to key operational modules for management.",
+    "modules": [
+      "Dashboard",
+      "Purchase",
+      "Sales",
+      "Reports"
+    ]
+  },
+  {
+    "name": "Staff",
+    "description": "Access limited to specific assigned modules.",
+    "modules": [
+      "Dashboard",
+      "Maintenance"
+    ]
+  }
+]

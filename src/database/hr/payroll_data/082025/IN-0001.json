@@ -1,0 +1,80 @@
+
+{
+  "employee_id": "IN-0001",
+  "name": "Vinay Kumar",
+  "photo": "/uploads/hr/employees/IN-0001/photo/1757224960041-WhatsAppImage2025-02-12at22.21.41_678394d3.jpg",
+  "base_salary": 50000,
+  "present_days": 26,
+  "working_days": 31,
+  "prorated_salary": 41935.48387096774,
+  "raw_ot_hours": 18,
+  "payable_ot_hours": 27,
+  "ot_pay": 4838.709677419355,
+  "bonus": 3600,
+  "advance_given_this_period": 0,
+  "deductions": [
+    {
+      "id": "ADJ-1757230936474",
+      "amount": 2000,
+      "remarks": "late coming"
+    },
+    {
+      "id": "repay-ADJ-1757229074740-1",
+      "amount": 10000,
+      "remarks": "Advance Installment 1/3"
+    }
+  ],
+  "net_salary": 38374.1935483871,
+  "calculation_details": {
+    "base_hourly_rate": 179.2114695340502,
+    "grade": 4,
+    "department": "IT",
+    "position": "Manager"
+  },
+  "attendance_summary": {
+    "present": 26,
+    "late": 9,
+    "absent": 5,
+    "leave": 0,
+    "holiday": 0
+  },
+  "month": "082025",
+  "employee_financial_history": [
+    {
+      "employee_id": "IN-0001",
+      "type": "Bonus",
+      "amount": 1300,
+      "date": "2025-08-07",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, not completed) for No Booking. ",
+      "id": "ADJ-1757227411265",
+      "visit_type": "View car in another province over 100 km (overnight, not completed)",
+      "license_plate": "No Booking"
+    },
+    {
+      "employee_id": "IN-0001",
+      "type": "Bonus",
+      "amount": 2300,
+      "date": "2025-08-07",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, completed) for HR16AD2820. ",
+      "id": "ADJ-1757227514036",
+      "visit_type": "View car in another province over 100 km (overnight, completed)",
+      "license_plate": "HR16AD2820"
+    },
+    {
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 2000,
+      "date": "2025-08-07",
+      "remarks": "late coming",
+      "id": "ADJ-1757230936474"
+    },
+    {
+      "id": "repay-ADJ-1757229074740-1",
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 10000,
+      "date": "2025-08-21",
+      "remarks": "Advance Installment 1/3"
+    }
+  ]
+}

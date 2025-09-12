@@ -1,0 +1,29 @@
+
+{
+  "id": "P004",
+  "vehicle": "Isuzu D-Max",
+  "date": "2024-07-10",
+  "purchasePrice": "฿920,000",
+  "finalPrice": "฿950,000",
+  "license_plate": "4GH-3456",
+  "seller": "Isuzu Phanom",
+  "paymentType": "Full Payment",
+  "status": "Completed",
+  "fullData": {
+    "brand": "Isuzu",
+    "model": "D-Max",
+    "year": "2023",
+    "fuelType": [
+      "Diesel"
+    ],
+    "vehiclePrice": 920000,
+    "taxFee": 15000,
+    "insuranceFee": 15000,
+    "deliveryFee": 0,
+    "licensePlateChangeFee": 0,
+    "financingPayoff": 0,
+    "grandTotal": 950000
+  },
+  "maintenance_history": [],
+  "financial_history": []
+}

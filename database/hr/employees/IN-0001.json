@@ -1,0 +1,40 @@
+{
+  "employee_id": "IN-0001",
+  "personal_info": {
+    "name": "Vinay Kumar",
+    "dob": "1993-03-13",
+    "nationality": "Indian",
+    "gender": "Male",
+    "contact": "09354160181",
+    "address": "Thakur Bhani Singh ki gali\nLohar Bazaar, Bhiwani, Haryana"
+  },
+  "job_details": {
+    "department": "IT",
+    "position": "Manager",
+    "joining_date": "2025-08-01",
+    "contract_expiry_date": "",
+    "salary": 50000,
+    "status": "Active",
+    "grade": 4
+  },
+  "qualification": {
+    "education": "B.Tech",
+    "skills": "Web Developing"
+  },
+  "documents": {
+    "photo": "/uploads/hr/employees/IN-0001/photo/1757417806536-WhatsAppImage2025-02-12at22.21.41_678394d3.jpg",
+    "id_proof": "/uploads/hr/employees/IN-0001/id_proof/1757417806542-LINE_ALBUM_2012Mercedes-BenzE250Coupe_250211_11.jpg",
+    "address_proof": "/uploads/hr/employees/IN-0001/address_proof/1757417806555-LINE_ALBUM__250211_9.jpg",
+    "education_cert": "/uploads/hr/employees/IN-0001/education_cert/1757417806565-LINE_ALBUM__250211_11.jpg",
+    "professional_cert": "/uploads/hr/employees/IN-0001/professional_cert/1757417806576-LINE_ALBUM__250211_3.jpg"
+  },
+  "emergency_contact": {
+    "name": "Ladda Jiamjan",
+    "relation": "Wife",
+    "phone": "987654321"
+  },
+  "experience": {
+    "previous_jobs": "",
+    "years": 10
+  }
+}

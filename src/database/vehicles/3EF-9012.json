@@ -1,0 +1,28 @@
+{
+  "id": "P003",
+  "vehicle": "Ford Ranger",
+  "date": "2024-07-05",
+  "purchasePrice": "฿1,100,000",
+  "finalPrice": "฿1,150,000",
+  "license_plate": "3EF-9012",
+  "seller": "Ford Motors",
+  "paymentType": "Financing Pay-off",
+  "status": "Processing",
+  "fullData": {
+    "brand": "Ford",
+    "model": "Ranger",
+    "year": "2024",
+    "fuelType": [
+      "Diesel"
+    ],
+    "vehiclePrice": 1100000,
+    "taxFee": 20000,
+    "insuranceFee": 30000,
+    "deliveryFee": 0,
+    "licensePlateChangeFee": 0,
+    "financingPayoff": 0,
+    "grandTotal": 1150000
+  },
+  "maintenance_history": [],
+  "financial_history": []
+}

@@ -1,0 +1,186 @@
+{
+  "id": "HR16AD2820",
+  "license_plate": "HR16AD2820",
+  "vehicle": "Maruti Suzuki Alto K10",
+  "date": "2025-08-05",
+  "seller": "Vinay Kumar",
+  "purchasePrice": "฿500,000",
+  "finalPrice": "฿511,500",
+  "paymentType": "Full Payment",
+  "status": "Sold",
+  "fullData": {
+    "previousLicensePlate": "HR16AD2820",
+    "brand": "other",
+    "otherBrand": "Maruti Suzuki",
+    "model": "other",
+    "otherModel": "Alto K10",
+    "year": "2025",
+    "yearOfPurchase": "2025",
+    "mileage": "24000",
+    "color": "White",
+    "vin": "123ABC456DEF789",
+    "engineNumber": "ENG-98765",
+    "fuelType": [
+      "petrol",
+      "cng"
+    ],
+    "transmission": "Manual",
+    "paymentType": "Full Payment",
+    "vehiclePrice": 500000,
+    "taxFee": 10000,
+    "insuranceFee": 1000,
+    "deliveryFee": 500,
+    "financingPayoff": 0,
+    "grandTotal": 511500,
+    "freelancerName": "Laadda jiamjan",
+    "freelancerPhone": "987654321",
+    "freelancerAddress": "Chinburi",
+    "commissionType": "Fixed",
+    "commissionValue": 2000,
+    "freelancerIdProof": "/uploads/vehicles/HR16AD2820/freelancer_ID/1757418137938-LINE_ALBUM__250211_4.jpg",
+    "insuranceCompany": "ICICI Lombard",
+    "insuranceExpiry": "2025-09-26",
+    "taxExpiry": "2025-10-14",
+    "insuranceDoc": "/uploads/vehicles/HR16AD2820/insurance_tax/1757418137949-LINE_ALBUM__250211_3.jpg",
+    "taxDoc": "/uploads/vehicles/HR16AD2820/insurance_tax/1757418137963-LINE_ALBUM__250211_4.jpg",
+    "sellerName": "Vinay Kumar",
+    "sellerPhone": "987654321",
+    "sellerIdCard": "/uploads/vehicles/HR16AD2820/seller_ID/1757418137922-LINE_ALBUM__250211_5.jpg",
+    "status": "Completed",
+    "mileageBefore": 24000,
+    "mileageAfter": 24100,
+    "totalDistance": 100,
+    "invoiceDate": "2025-08-05",
+    "closingDate": "2025-08-05",
+    "remarks": "",
+    "mainImage": "/uploads/vehicles/HR16AD2820/vehicle_images/1757418137988-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_17.jpg",
+    "additionalImages": [
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138011-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_19.jpg",
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138017-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_20.jpg",
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138023-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_21.jpg",
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138032-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_22.jpg",
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138042-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_23.jpg",
+      "/uploads/vehicles/HR16AD2820/vehicle_images/1757418138047-LINE_ALBUM_2014VOLVOXC90MinorChange_250430_24.jpg"
+    ]
+  },
+  "maintenance_history": [
+    {
+      "license_plate": "HR16AD2820",
+      "service_date": "2025-08-29",
+      "items": "Oil change",
+      "cost": 500,
+      "tax": 35,
+      "remarks": "",
+      "invoiceFile": "/uploads/vehicles/HR16AD2820/maintenance_doc/1757419641695-102050_0.jpg",
+      "status": "Completed",
+      "total": 535,
+      "maintenance_id": "MT09092501"
+    }
+  ],
+  "financial_history": [
+    {
+      "transaction_id": "LIC-195944",
+      "type": "expense",
+      "category": "License Plate Fee",
+      "license_plate": "TN20GH7777",
+      "amount": 20000,
+      "currency": "THB",
+      "date": "2025-09-09",
+      "remarks": "New license plate registration: TN20GH7777"
+    },
+    {
+      "type": "expense",
+      "category": "Fuel",
+      "license_plate": "HR16AD2820",
+      "amount": 500,
+      "date": "2025-08-30",
+      "remarks": "",
+      "uploaded_file": "/uploads/vehicles/HR16AD2820/expense_doc/1757419705795-102050_0.jpg",
+      "transaction_id": "TXN-705797",
+      "currency": "THB"
+    },
+    {
+      "type": "income",
+      "category": "Vehicle Capital",
+      "license_plate": "HR16AD2820",
+      "amount": 5000,
+      "date": "2025-09-01",
+      "remarks": "",
+      "uploaded_file": "/uploads/vehicles/HR16AD2820/income_doc/1757419736975-102052_0.jpg",
+      "transaction_id": "TXN-736976",
+      "currency": "THB"
+    },
+    {
+      "transaction_id": "COMM-1757419933820",
+      "type": "expense",
+      "category": "Sales Commission",
+      "license_plate": "HR16AD2820",
+      "amount": 6000,
+      "currency": "THB",
+      "date": "2025-09-09",
+      "remarks": "Commission for IN-0001, TH-0001. "
+    }
+  ],
+  "bonus_history": [
+    {
+      "id": "BON-1757418173612-0001",
+      "employee_id": "IN-0001",
+      "type": "Bonus",
+      "amount": 2300,
+      "date": "2025-09-09",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, completed).",
+      "visit_type": "View car in another province over 100 km (overnight, completed)",
+      "license_plate": "HR16AD2820"
+    },
+    {
+      "id": "BON-1757418173612-0001",
+      "employee_id": "TH-0001",
+      "type": "Bonus",
+      "amount": 2300,
+      "date": "2025-09-09",
+      "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, completed).",
+      "visit_type": "View car in another province over 100 km (overnight, completed)",
+      "license_plate": "HR16AD2820"
+    }
+  ],
+  "licence_history": [
+    {
+      "originalLicensePlate": "HR16AD2820",
+      "newLicensePlate": "TN20GH7777",
+      "issueDate": "2025-09-09",
+      "expiryDate": "",
+      "issuingAuthority": "RTO Channai",
+      "remarks": "",
+      "price": 20000
+    }
+  ],
+  "sale_details": {
+    "buyer": {
+      "name": "Ladda Jiamjan",
+      "contact": "987654321",
+      "address": "Bangkok",
+      "id_proof": "/uploads/vehicles/HR16AD2820/buyer_ID/1757419910680-102051_0.jpg"
+    },
+    "sale_details": {
+      "sale_price": 700000,
+      "currency": "THB",
+      "sale_date": "2025-09-09",
+      "payment_method": "Cash",
+      "finance_company": "",
+      "down_payment": 0,
+      "loan_amount": 0,
+      "loan_tenure": 0,
+      "monthly_emi": 0
+    },
+    "freelancer_commission": {
+      "name": "Vinay Kumar",
+      "address": "Chonburi",
+      "commission": 5000,
+      "id_proof": "/uploads/vehicles/HR16AD2820/seller_freelancer/1757419910686-102051_0.jpg"
+    },
+    "documents": [
+      "/uploads/vehicles/HR16AD2820/sales_doc/1757419910691-102053_0.jpg"
+    ],
+    "sale_id": "SL09092501"
+  }
+}

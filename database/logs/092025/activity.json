@@ -1,0 +1,1134 @@
+[
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757318878551-xqhznz6",
+    "timestamp": "2025-09-08T08:07:58.550Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757321996168-2zpt4eg",
+    "timestamp": "2025-09-08T08:59:56.167Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757324980427-i624kft",
+    "timestamp": "2025-09-08T09:49:40.425Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Updated license details for vehicle HR16AC2860. New plate: HR32RC5549.",
+    "log_id": "LOG-1757325012775-po4f02q",
+    "timestamp": "2025-09-08T09:50:12.771Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757345683235-8ri90ju",
+    "timestamp": "2025-09-08T15:34:43.235Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Sales",
+    "action": "Recorded sale for vehicle HR16AC2860.",
+    "log_id": "LOG-1757348045252-sathuz8",
+    "timestamp": "2025-09-08T16:14:05.252Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 3600
+    },
+    "log_id": "LOG-1757350080499-p2bb4im",
+    "timestamp": "2025-09-08T16:48:00.498Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Created employee adjustment",
+    "details": {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 20000
+    },
+    "log_id": "LOG-1757350080503-ofyv9u5",
+    "timestamp": "2025-09-08T16:48:00.499Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 0
+    },
+    "log_id": "LOG-1757353464918-lbbc7w9",
+    "timestamp": "2025-09-08T17:44:24.918Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": -5000
+    },
+    "log_id": "LOG-1757353764023-2mvl96x",
+    "timestamp": "2025-09-08T17:49:24.022Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757353990145-0gp21vb",
+    "timestamp": "2025-09-08T17:53:10.142Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757390153437-wxrpuew",
+    "timestamp": "2025-09-09T03:55:53.436Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 41774.1935483871
+    },
+    "log_id": "LOG-1757390241015-rafd1ev",
+    "timestamp": "2025-09-09T03:57:21.010Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 46774.1935483871
+    },
+    "log_id": "LOG-1757390506352-uegajj3",
+    "timestamp": "2025-09-09T04:01:46.350Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 46774.1935483871
+    },
+    "log_id": "LOG-1757390902437-mba1wil",
+    "timestamp": "2025-09-09T04:08:22.436Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757391996373-t45nrj9",
+    "timestamp": "2025-09-09T04:26:36.369Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 48074.1935483871
+    },
+    "log_id": "LOG-1757392018917-jrxy3z9",
+    "timestamp": "2025-09-09T04:26:58.912Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 48074.1935483871
+    },
+    "log_id": "LOG-1757392141553-1ld6nek",
+    "timestamp": "2025-09-09T04:29:01.548Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025",
+      "net_salary": 48074.1935483871
+    },
+    "log_id": "LOG-1757392318987-f0e1cio",
+    "timestamp": "2025-09-09T04:31:58.980Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757396837435-3gubh96",
+    "timestamp": "2025-09-09T05:47:17.434Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Created new vehicle record for HR26AR1860.",
+    "log_id": "LOG-1757397808165-ot0mffe",
+    "timestamp": "2025-09-09T06:03:28.162Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757399909620-etvmdsc",
+    "timestamp": "2025-09-09T06:38:29.619Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 3600
+    },
+    "log_id": "LOG-1757399942660-9xwtd86",
+    "timestamp": "2025-09-09T06:39:02.657Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "TH-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757399942677-2ud0824",
+    "timestamp": "2025-09-09T06:39:02.673Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Recorded vehicle visit bonus for PH09092501",
+    "details": {
+      "employees": 2,
+      "amount_per_employee": 2300
+    },
+    "log_id": "LOG-1757399942686-oc0qi4m",
+    "timestamp": "2025-09-09T06:39:02.682Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757400930623-aokjbtd",
+    "timestamp": "2025-09-09T06:55:30.622Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757401479489-xby8tta",
+    "timestamp": "2025-09-09T07:04:39.485Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757402754383-fwu7pu0",
+    "timestamp": "2025-09-09T07:25:54.382Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Updated license details for vehicle PH09092501. New plate: TN20GH7777.",
+    "log_id": "LOG-1757403497872-pft4ojb",
+    "timestamp": "2025-09-09T07:38:17.859Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757404396145-xggfxzp",
+    "timestamp": "2025-09-09T07:53:16.144Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757417659526-t6br6o4",
+    "timestamp": "2025-09-09T11:34:19.525Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Created employee record",
+    "details": {
+      "employee_id": "IN-0001",
+      "name": "Vinay Kumar"
+    },
+    "log_id": "LOG-1757417806627-evbp8ue",
+    "timestamp": "2025-09-09T11:36:46.615Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Created employee record",
+    "details": {
+      "employee_id": "TH-0001",
+      "name": "Ladda Jiamjan"
+    },
+    "log_id": "LOG-1757417922312-mt26nd1",
+    "timestamp": "2025-09-09T11:38:42.307Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Created new vehicle record for HR16AD2820.",
+    "log_id": "LOG-1757418138116-vuxxvqh",
+    "timestamp": "2025-09-09T11:42:18.115Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757418173563-7lsmrwf",
+    "timestamp": "2025-09-09T11:42:53.556Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "TH-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757418173603-nkxydx5",
+    "timestamp": "2025-09-09T11:42:53.585Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Recorded vehicle visit bonus for HR16AD2820",
+    "details": {
+      "employees": 2,
+      "amount_per_employee": 2300
+    },
+    "log_id": "LOG-1757418173651-vk67v4u",
+    "timestamp": "2025-09-09T11:42:53.641Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Updated license details for vehicle HR16AD2820. New plate: TN20GH7777.",
+    "log_id": "LOG-1757418195953-p9ko2cd",
+    "timestamp": "2025-09-09T11:43:15.949Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757419575782-4fzx0nj",
+    "timestamp": "2025-09-09T12:06:15.779Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Maintenance",
+    "action": "Added new maintenance record ID MT09092501 for vehicle HR16AD2820.",
+    "log_id": "LOG-1757419641716-dyoahkb",
+    "timestamp": "2025-09-09T12:07:21.710Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Added new financial transaction ID TXN-705797 for vehicle HR16AD2820.",
+    "log_id": "LOG-1757419705807-np3nvk7",
+    "timestamp": "2025-09-09T12:08:25.801Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Added new financial transaction ID TXN-736976 for vehicle HR16AD2820.",
+    "log_id": "LOG-1757419736988-pgabwcy",
+    "timestamp": "2025-09-09T12:08:56.984Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757419801162-v7u5qma",
+    "timestamp": "2025-09-09T12:10:01.158Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Created employee adjustment",
+    "details": {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 20000
+    },
+    "log_id": "LOG-1757419801175-7sci5c9",
+    "timestamp": "2025-09-09T12:10:01.172Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757419820032-k1m8g9r",
+    "timestamp": "2025-09-09T12:10:20.031Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Updated employee adjustment",
+    "details": {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 20000
+    },
+    "log_id": "LOG-1757419820041-yz6a4aw",
+    "timestamp": "2025-09-09T12:10:20.039Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Sales",
+    "action": "Recorded sale for vehicle HR16AD2820.",
+    "log_id": "LOG-1757419910704-rrj43uz",
+    "timestamp": "2025-09-09T12:11:50.700Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Sales",
+    "action": "Recorded sale for vehicle HR16AD2820.",
+    "log_id": "LOG-1757419933829-9x7a4u2",
+    "timestamp": "2025-09-09T12:12:13.828Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757419933853-267n57d",
+    "timestamp": "2025-09-09T12:12:13.845Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "TH-0001",
+      "period": "092025"
+    },
+    "log_id": "LOG-1757419933870-f53a02f",
+    "timestamp": "2025-09-09T12:12:13.864Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Sales",
+    "action": "Recorded sales commission",
+    "details": {
+      "vehicle": "Maruti Suzuki Alto K10",
+      "total": 6000,
+      "employees": 2
+    },
+    "log_id": "LOG-1757419933880-nlftloi",
+    "timestamp": "2025-09-09T12:12:13.874Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Purchase",
+    "action": "Created new vehicle record for HR16AC2860.",
+    "log_id": "LOG-1757420447210-9pwvird",
+    "timestamp": "2025-09-09T12:20:47.193Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Added new financial transaction ID TXN-744835 for vehicle HR16AC2860.",
+    "log_id": "LOG-1757420744854-dzdzxsv",
+    "timestamp": "2025-09-09T12:25:44.847Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Saved/Updated attendance data",
+    "details": {
+      "month": "092025",
+      "record_count": 40
+    },
+    "log_id": "LOG-1757420973004-jfr5ior",
+    "timestamp": "2025-09-09T12:29:32.996Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Saved/Updated attendance data",
+    "details": {
+      "month": "092025",
+      "record_count": 62
+    },
+    "log_id": "LOG-1757421616657-8yb0pfa",
+    "timestamp": "2025-09-09T12:40:16.647Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 49074.1935483871
+    },
+    "log_id": "LOG-1757421659881-2kvofmg",
+    "timestamp": "2025-09-09T12:40:59.877Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 49074.1935483871
+    },
+    "log_id": "LOG-1757421808976-hv25vhl",
+    "timestamp": "2025-09-09T12:43:28.972Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Deleted employee adjustment",
+    "details": {
+      "id": "COMM-1757419933860-0001",
+      "type": "Bonus",
+      "amount": 3000,
+      "date": "2025-09-09",
+      "remarks": "Sales commission for Maruti Suzuki Alto K10. "
+    },
+    "log_id": "LOG-1757422171147-pvhqqz4",
+    "timestamp": "2025-09-09T12:49:31.142Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 49074.1935483871
+    },
+    "log_id": "LOG-1757422198252-tlci67b",
+    "timestamp": "2025-09-09T12:49:58.245Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Created employee adjustment",
+    "details": {
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 2000
+    },
+    "log_id": "LOG-1757422198262-9e253qf",
+    "timestamp": "2025-09-09T12:49:58.258Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Saved/Updated attendance data",
+    "details": {
+      "month": "102025",
+      "record_count": 60
+    },
+    "log_id": "LOG-1757422888826-y5qh978",
+    "timestamp": "2025-09-09T13:01:28.811Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 67074.19354838709
+    },
+    "log_id": "LOG-1757422911331-zszm33r",
+    "timestamp": "2025-09-09T13:01:51.327Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757422942929-6f0ar1h",
+    "timestamp": "2025-09-09T13:02:22.924Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757423312518-9vqq57f",
+    "timestamp": "2025-09-09T13:08:32.517Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757423355097-3v89q5z",
+    "timestamp": "2025-09-09T13:09:15.095Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757423532145-pbl5zsk",
+    "timestamp": "2025-09-09T13:12:12.138Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757424209352-g8wq8lq",
+    "timestamp": "2025-09-09T13:23:29.351Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757424384141-v8s25i1",
+    "timestamp": "2025-09-09T13:26:24.136Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "082025"
+    },
+    "log_id": "LOG-1757424436832-46b3hx9",
+    "timestamp": "2025-09-09T13:27:16.831Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 67074.19354838709
+    },
+    "log_id": "LOG-1757424436845-yw4p2d3",
+    "timestamp": "2025-09-09T13:27:16.843Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "102025",
+      "net_salary": 46527.77777777778
+    },
+    "log_id": "LOG-1757424436858-2nxl7yt",
+    "timestamp": "2025-09-09T13:27:16.856Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Finance",
+    "action": "Created employee adjustment",
+    "details": {
+      "employee_id": "IN-0001",
+      "type": "Advance",
+      "amount": 10000
+    },
+    "log_id": "LOG-1757424436861-q2nipz1",
+    "timestamp": "2025-09-09T13:27:16.860Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "HR",
+    "action": "Calculated and saved payroll",
+    "details": {
+      "employee_id": "IN-0001",
+      "period": "092025",
+      "net_salary": 62074.19354838709
+    },
+    "log_id": "LOG-1757424447642-jsmeul0",
+    "timestamp": "2025-09-09T13:27:27.641Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757430754837-lv6vgxl",
+    "timestamp": "2025-09-09T15:12:34.812Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757477343413-fbvm5mg",
+    "timestamp": "2025-09-10T04:09:03.410Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "ADM-SU-001",
+    "user_name": "Vinay Kumar",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757570304631-qkx6dmn",
+    "timestamp": "2025-09-11T05:58:24.629Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757574635860-1id9jsc",
+    "timestamp": "2025-09-11T07:10:35.858Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757574707867-43oagit",
+    "timestamp": "2025-09-11T07:11:47.865Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "SYSTEM",
+    "user_name": "System User",
+    "module": "Admin",
+    "action": "Updated user list. Total users: 1.",
+    "log_id": "LOG-1757575149211-rz5huye",
+    "timestamp": "2025-09-11T07:19:09.205Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "SYSTEM",
+    "user_name": "System User",
+    "module": "Admin",
+    "action": "Updated user list. Total users: 2.",
+    "log_id": "LOG-1757575170092-g19ykys",
+    "timestamp": "2025-09-11T07:19:30.090Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "SYSTEM",
+    "user_name": "System User",
+    "module": "Admin",
+    "action": "Updated user list. Total users: 1.",
+    "log_id": "LOG-1757575409892-g2141w0",
+    "timestamp": "2025-09-11T07:23:29.887Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Admin",
+    "action": "Error deleting user MAN-NEW-xs7y: @supabase/auth-js: Expected parameter to be UUID but is not",
+    "log_id": "LOG-1757576148177-q0mt2t0",
+    "timestamp": "2025-09-11T07:35:48.171Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Admin",
+    "action": "Failed to create profile for mako@openroad.com, rolled back auth user: duplicate key value violates unique constraint \"profiles_email_key\"",
+    "log_id": "LOG-1757576169597-4zsysno",
+    "timestamp": "2025-09-11T07:36:09.595Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Admin",
+    "action": "Failed to create profile for mako@openroad.com, rolled back auth user: duplicate key value violates unique constraint \"profiles_email_key\"",
+    "log_id": "LOG-1757576177062-ncgc6hw",
+    "timestamp": "2025-09-11T07:36:17.060Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Admin",
+    "action": "Error deleting user MAN-NEW-xs7y: @supabase/auth-js: Expected parameter to be UUID but is not",
+    "log_id": "LOG-1757576516311-f1w006c",
+    "timestamp": "2025-09-11T07:41:56.302Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Admin",
+    "action": "Created new user: Mako Jiamjan (mako@openroad.com) with role Manager",
+    "log_id": "LOG-1757576772860-2y1nlsp",
+    "timestamp": "2025-09-11T07:46:12.856Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Logout",
+    "log_id": "LOG-1757576819230-hfhwk5m",
+    "timestamp": "2025-09-11T07:46:59.228Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1ee17418-a2f5-4ca1-aa73-38f89f84bdc0",
+    "user_name": "Mako Jiamjan",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757576828858-b2rrabj",
+    "timestamp": "2025-09-11T07:47:08.857Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "a421bc26-e0c5-4822-8d5e-c246e0196d7b",
+    "user_name": "Mako Jiamjan",
+    "module": "Settings",
+    "action": "Updated own profile information.",
+    "details": {
+      "updated_fields": [
+        "profile picture"
+      ]
+    },
+    "log_id": "LOG-1757577236845-n9zkzek",
+    "timestamp": "2025-09-11T07:53:56.838Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757587124417-8humojr",
+    "timestamp": "2025-09-11T10:38:44.414Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "SYSTEM",
+    "user_name": "System User",
+    "module": "Purchase",
+    "action": "Updated purchase details for vehicle HR16AC2860.",
+    "log_id": "LOG-1757587386221-jxy093z",
+    "timestamp": "2025-09-11T10:43:06.219Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "SYSTEM",
+    "user_name": "System User",
+    "module": "Purchase",
+    "action": "Updated license details for vehicle HR16AC2860. New plate: HR32RC5549.",
+    "log_id": "LOG-1757587416634-o2gu320",
+    "timestamp": "2025-09-11T10:43:36.633Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  }
+]

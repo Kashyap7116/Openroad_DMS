@@ -1,0 +1,51 @@
+{
+  "id": "P001",
+  "vehicle": "Toyota Camry",
+  "date": "2024-07-01",
+  "purchasePrice": "฿850,000",
+  "finalPrice": "฿875,000",
+  "license_plate": "1AB-1234",
+  "seller": "Toyota Thailand",
+  "paymentType": "Full Payment",
+  "status": "Completed",
+  "fullData": {
+    "brand": "Toyota",
+    "model": "Camry",
+    "year": "2023",
+    "fuelType": [
+      "Petrol"
+    ],
+    "vehiclePrice": 850000,
+    "taxFee": 10000,
+    "insuranceFee": 15000,
+    "deliveryFee": 0,
+    "licensePlateChangeFee": 0,
+    "financingPayoff": 0,
+    "grandTotal": 875000
+  },
+  "maintenance_history": [],
+  "financial_history": [
+    {
+      "transaction_id": "TXN-2025-07-001",
+      "type": "expense",
+      "category": "Vehicle Purchase Cost",
+      "license_plate": "1AB-1234",
+      "amount": 875000,
+      "currency": "THB",
+      "date": "2025-07-01",
+      "remarks": "Purchase of Toyota Camry",
+      "uploaded_file": null
+    },
+    {
+      "transaction_id": "TXN-2025-07-002",
+      "type": "expense",
+      "category": "Fuel",
+      "license_plate": "1AB-1234",
+      "amount": 1200,
+      "currency": "THB",
+      "date": "2025-07-02",
+      "remarks": "Fuel for transport to workshop",
+      "uploaded_file": "fuel_receipt.png"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+
+[
+  {
+    "employee_id": "IN-0001",
+    "type": "Deduction",
+    "amount": 2000,
+    "date": "2025-08-07",
+    "remarks": "late coming",
+    "id": "ADJ-1757230936474"
+  },
+  {
+    "id": "ADJ-1757314366119-IN-0001",
+    "employee_id": "IN-0001",
+    "type": "Bonus",
+    "amount": 1300,
+    "date": "2025-09-08",
+    "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, not completed) for HR30MT1254.",
+    "visit_type": "View car in another province over 100 km (overnight, not completed)",
+    "license_plate": "HR30MT1254"
+  },
+  {
+    "id": "ADJ-1757314366119-TH-0001",
+    "employee_id": "TH-0001",
+    "type": "Bonus",
+    "amount": 1300,
+    "date": "2025-09-08",
+    "remarks": "Vehicle visit bonus: View car in another province over 100 km (overnight, not completed) for HR30MT1254.",
+    "visit_type": "View car in another province over 100 km (overnight, not completed)",
+    "license_plate": "HR30MT1254"
+  }
+]

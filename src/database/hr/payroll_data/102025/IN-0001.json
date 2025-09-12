@@ -1,0 +1,22 @@
+
+{
+  "employee_id": "IN-0001",
+  "employee_financial_history": [
+    {
+      "id": "repay-ADJ-1757229074740-3",
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 10000,
+      "date": "2025-10-21",
+      "remarks": "Advance Installment 3/3"
+    },
+    {
+      "id": "repay-ADJ-1757419801155-1",
+      "employee_id": "IN-0001",
+      "type": "Deduction",
+      "amount": 5000,
+      "date": "2025-10-21",
+      "remarks": "Advance Installment 1/4"
+    }
+  ]
+}

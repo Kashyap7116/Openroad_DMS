@@ -1,0 +1,40 @@
+{
+  "employee_id": "TH-0001",
+  "personal_info": {
+    "name": "Ladda Jiamjan",
+    "dob": "1987-01-20",
+    "nationality": "Thai",
+    "gender": "Female",
+    "contact": "987654321",
+    "address": "45/2 MOO 10, NONG PRUE"
+  },
+  "job_details": {
+    "department": "Marketing",
+    "position": "Manager",
+    "joining_date": "2025-08-20",
+    "contract_expiry_date": "",
+    "salary": 70000,
+    "status": "Active",
+    "grade": 4
+  },
+  "qualification": {
+    "education": "Vocational degree",
+    "skills": "Photo shop"
+  },
+  "documents": {
+    "photo": "/uploads/hr/employees/TH-0001/photo/1757417922263-PhotoMako.jpg",
+    "id_proof": "/uploads/hr/employees/TH-0001/id_proof/1757417922267-LINE_ALBUM_2012Mercedes-BenzE250Coupe_250211_3.jpg",
+    "address_proof": "/uploads/hr/employees/TH-0001/address_proof/1757417922283-LINE_ALBUM__250211_3.jpg",
+    "education_cert": "/uploads/hr/employees/TH-0001/education_cert/1757417922291-LINE_ALBUM__250211_10.jpg",
+    "professional_cert": "/uploads/hr/employees/TH-0001/professional_cert/1757417922297-LINE_ALBUM_2012Mercedes-BenzE250Coupe_250211_10.jpg"
+  },
+  "emergency_contact": {
+    "name": "Vinay Kumar",
+    "relation": "Husband",
+    "phone": "987654321"
+  },
+  "experience": {
+    "previous_jobs": "",
+    "years": 8
+  }
+}

@@ -1,0 +1,14 @@
+
+{
+  "month": "2025-07",
+  "total_income": 0,
+  "total_expenses": 0,
+  "net_profit_loss": 0,
+  "breakdown": {
+    "purchase_cost": 0,
+    "maintenance_cost": 0,
+    "sales_income": 0,
+    "hr_salaries": 0,
+    "office_expenses": 0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "employee_id": "IN-0001",
+  "month": "062025",
+  "advance_summary": {
+    "total_advance": 30000,
+    "installments": 3,
+    "current_installment": 0,
+    "remaining_amount": 30000
+  },
+  "transaction": {
+    "type": "credit",
+    "amount": 30000,
+    "status": "advance credited"
+  }
+}
