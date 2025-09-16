@@ -3,6 +3,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import sanitize from 'sanitize-filename';
 import { getAllVehicles, getVehicle, saveVehicle } from './vehicle-actions';
 import { getPayrollDataForMonth, savePayrollData } from './hr-actions';
 import { handleAndLogApiError, getPayrollMonthYearForDate } from './utils';
@@ -44,7 +45,17 @@ export async function getEmployeeAdjustments(employeeId?: string) {
                 const stats = await fs.stat(employeeFilesPath);
                 if (!stats.isDirectory()) continue;
 
-                const employeeFiles = employeeId ? [`${employeeId}.json`] : await fs.readdir(employeeFilesPath);
+                let employeeFiles;
+                if (employeeId) {
+                    const safeEmployeeId = sanitize(employeeId);
+                    if (!safeEmployeeId || safeEmployeeId !== employeeId) {
+                        // Skip invalid/malicious employeeId
+                        continue;
+                    }
+                    employeeFiles = [`${safeEmployeeId}.json`];
+                } else {
+                    employeeFiles = await fs.readdir(employeeFilesPath);
+                }
                 
                 for (const employeeFile of employeeFiles) {
                     const payrollFilePath = path.join(payrollDataDir, monthDir, employeeFile);

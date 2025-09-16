@@ -10,8 +10,9 @@ import { Label } from '@/components/ui/label';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Loader2, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { getCurrentUser, updateUser } from '@/lib/auth-actions';
-import type { UserRecord } from '@/app/(dashboard)/admin/users/page';
+import { getCurrentUser } from '@/lib/supabase-auth-actions';
+import { updateProfileAction } from '@/lib/profile-actions';
+import type { UserProfile } from '@/lib/supabase-auth-actions';
 
 function fileToDataUri(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ function fileToDataUri(file: File): Promise<string> {
 
 export default function SettingsPage() {
     const { toast } = useToast();
-    const [user, setUser] = useState<UserRecord | null>(null);
+    const [user, setUser] = useState<UserProfile | null>(null);
     const [name, setName] = useState('');
     const [newImageFile, setNewImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -58,24 +59,40 @@ export default function SettingsPage() {
         if (!user) return;
         setIsSaving(true);
         
-        const result = await updateUser(user.email, name, newImageFile);
+        try {
+            const formData = new FormData();
+            formData.append('name', name);
+            
+            if (newImageFile) {
+                formData.append('image', newImageFile);
+            }
 
-        if (result.success && result.user) {
-            setUser(result.user);
-            setName(result.user.name);
-            setImagePreview(result.user.image || null);
-            setNewImageFile(null);
+            const result = await updateProfileAction(formData);
 
+            if (result.success && result.user) {
+                setUser(result.user);
+                setName(result.user.name);
+                setImagePreview(result.user.image || null);
+                setNewImageFile(null);
+
+                toast({
+                    title: 'Profile Updated',
+                    description: 'Your profile has been updated successfully.',
+                });
+                // Force a reload to update sidebar/header state.
+                window.location.reload(); 
+            } else {
+                toast({
+                    title: 'Error',
+                    description: result.error || 'Failed to update profile.',
+                    variant: 'destructive',
+                });
+            }
+        } catch (error) {
+            console.error('Profile update error:', error);
             toast({
-                title: 'Profile Updated',
-                description: 'Your profile has been updated successfully.',
-            });
-            // Force a reload to update sidebar/header state.
-            window.location.reload(); 
-        } else {
-             toast({
                 title: 'Error',
-                description: result.error || 'Failed to update profile.',
+                description: 'An unexpected error occurred.',
                 variant: 'destructive',
             });
         }

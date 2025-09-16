@@ -278,9 +278,13 @@ function getDefaultModulesForRole(role: string): string[] {
 }
 
 /**
- * Update user profile
+ * Update user profile with optional image upload
  */
-export async function updateUserProfile(updates: Partial<UserProfile>) {
+export async function updateUserProfile(updates: Partial<UserProfile>, imageFile?: File | null) {
+  if (!updates || typeof updates !== 'object') {
+    return { success: false, error: 'Invalid updates provided' }
+  }
+
   const supabase = await createClient()
   const currentUser = await getCurrentUser()
 
@@ -289,15 +293,62 @@ export async function updateUserProfile(updates: Partial<UserProfile>) {
   }
 
   try {
+    let finalUpdates = { ...updates }
+    
+    // Handle image upload if provided
+    if (imageFile) {
+      // Generate unique filename
+      const fileExt = imageFile.name.split('.').pop()
+      const fileName = `${currentUser.user_id}-${Date.now()}.${fileExt}`
+      const filePath = `${currentUser.user_id}/${fileName}`
+
+      // Upload to Supabase storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('profile-pictures')
+        .upload(filePath, imageFile, {
+          cacheControl: '3600',
+          upsert: true
+        })
+
+      if (uploadError) {
+        console.error('Image upload error:', uploadError)
+        return { success: false, error: 'Failed to upload profile picture' }
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-pictures')
+        .getPublicUrl(filePath)
+
+      finalUpdates.image = publicUrl
+    }
+
+    // Update profile in database using service role to bypass RLS
     const { data, error } = await supabaseService
       .from('profiles')
-      .update(updates)
+      .update(finalUpdates)
       .eq('user_id', currentUser.user_id)
       .select()
       .single()
 
     if (error) {
+      console.error('Profile update error:', error)
       return { success: false, error: error.message }
+    }
+
+    // Log the profile update
+    try {
+      await addLog({
+        user_id: currentUser.user_id,
+        user_name: currentUser.name,
+        module: 'Settings',
+        action: 'Updated profile',
+        details: {
+          updated_fields: Object.keys(finalUpdates)
+        }
+      })
+    } catch (logError) {
+      console.warn('Failed to log profile update:', logError)
     }
 
     return { success: true, user: data }

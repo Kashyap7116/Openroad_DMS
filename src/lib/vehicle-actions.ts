@@ -15,14 +15,35 @@ const vehiclesDbDir = path.join(process.cwd(), 'database', 'vehicles');
 const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'vehicles');
 
 /**
+ * Ensures that a folder name is safe (only allows alphanumeric, underscore, hyphen).
+ * @param name Folder name to validate.
+ * @returns true if name is safe; false otherwise.
+ */
+function isSafeFolderName(name: string): boolean {
+    // Only allow A-Z, a-z, 0-9, underscore, hyphen. No path separators!
+    return /^[a-zA-Z0-9_-]+$/.test(name);
+}
+
+/**
  * Ensures a directory exists, silently continuing if it's already there.
  * @param dirPath The path to the directory.
+ * @param rootDir Optional root directory for security validation.
  */
-async function ensureDirectoryExists(dirPath: string) {
+async function ensureDirectoryExists(dirPath: string, rootDir?: string) {
+    const resolvedDirPath = path.resolve(dirPath);
+    
+    // If rootDir is provided, validate the path is within it
+    if (rootDir) {
+        const resolvedRootDir = path.resolve(rootDir);
+        if (!resolvedDirPath.startsWith(resolvedRootDir + path.sep)) {
+            throw new Error('Unsafe directory path detected: Refusing to create directory outside upload directory.');
+        }
+    }
+    
     try {
-        await fs.access(dirPath);
+        await fs.access(resolvedDirPath);
     } catch {
-        await fs.mkdir(dirPath, { recursive: true });
+        await fs.mkdir(resolvedDirPath, { recursive: true });
     }
 }
 
@@ -34,15 +55,27 @@ async function ensureDirectoryExists(dirPath: string) {
  * @returns The public URL path to the saved file.
  */
 async function saveFile(originalLicensePlate: string, subfolder: string, file: File): Promise<string> {
+    if (!isSafeFolderName(originalLicensePlate)) {
+        throw new Error('Invalid originalLicensePlate: must be alphanumeric, underscore, or hyphen only.');
+    }
+    if (!isSafeFolderName(subfolder)) {
+        throw new Error('Invalid subfolder: must be alphanumeric, underscore, or hyphen only.');
+    }
     const vehicleUploadsDir = path.join(uploadsDir, originalLicensePlate, subfolder);
-    await ensureDirectoryExists(vehicleUploadsDir);
+    await ensureDirectoryExists(vehicleUploadsDir, uploadsDir);
 
     const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '');
     const uniqueFileName = `${Date.now()}-${sanitizedFileName}`;
     const filePath = path.join(vehicleUploadsDir, uniqueFileName);
     
+    // Ensure filePath stays strictly within the uploadsDir root
+    const resolvedFilePath = path.resolve(filePath);
+    const resolvedUploadsDir = path.resolve(uploadsDir);
+    if (!resolvedFilePath.startsWith(resolvedUploadsDir + path.sep)) {
+        throw new Error('Unsafe file path detected: Refusing write outside upload directory.');
+    }
     const fileBuffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(filePath, fileBuffer);
+    await fs.writeFile(resolvedFilePath, fileBuffer);
     
     // Return the public URL path, which is directly usable in <img> src or <a> href
     return `/uploads/vehicles/${originalLicensePlate}/${subfolder}/${uniqueFileName}`;
@@ -109,7 +142,12 @@ export async function getAllVehicles(): Promise<VehicleRecord[]> {
 export async function getVehicle(vehicleId: string): Promise<VehicleRecord | null> {
     if (!vehicleId) return null;
     await ensureDirectoryExists(vehiclesDbDir);
-    const filePath = path.join(vehiclesDbDir, `${vehicleId}.json`);
+    const filePath = path.resolve(vehiclesDbDir, `${vehicleId}.json`);
+    // Ensure filePath stays within vehiclesDbDir to prevent path traversal
+    const vehiclesDbDirWithSep = vehiclesDbDir.endsWith(path.sep) ? vehiclesDbDir : vehiclesDbDir + path.sep;
+    if (!filePath.startsWith(vehiclesDbDirWithSep)) {
+        return null;
+    }
     try {
         await fs.access(filePath);
         const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -138,8 +176,12 @@ export async function saveVehicle(permanentId: string, formData: any, isEditing:
         return saveOfficeTransaction(formData.financial_record);
     }
 
-    const filePath = path.join(vehiclesDbDir, `${permanentId}.json`);
-    
+    const filePath = path.resolve(vehiclesDbDir, `${permanentId}.json`);
+    // Ensure filePath stays within vehiclesDbDir to prevent path traversal
+    const vehiclesDbDirWithSep = vehiclesDbDir.endsWith(path.sep) ? vehiclesDbDir : vehiclesDbDir + path.sep;
+    if (!filePath.startsWith(vehiclesDbDirWithSep)) {
+        return { success: false, error: "Invalid vehicle ID." };
+    }
     try {
         const user = await getCurrentUser();
         await ensureDirectoryExists(vehiclesDbDir);
@@ -381,8 +423,16 @@ export async function deleteVehicle(permanentId: string) {
         return { success: false, error: "Permanent ID is required to delete vehicle data." };
     }
 
-    const filePath = path.join(vehiclesDbDir, `${permanentId}.json`);
-    const vehicleUploadsDir = path.join(uploadsDir, permanentId);
+    // Normalize the path and ensure it stays under vehiclesDbDir
+    const filePath = path.resolve(vehiclesDbDir, `${permanentId}.json`);
+    if (!filePath.startsWith(vehiclesDbDir + path.sep)) {
+        return { success: false, error: "Invalid permanentId: outside vehicles database directory." };
+    }
+    // Normalize the path and ensure it stays under uploadsDir
+    const vehicleUploadsDir = path.resolve(uploadsDir, permanentId);
+    if (!vehicleUploadsDir.startsWith(uploadsDir + path.sep)) {
+        return { success: false, error: "Invalid permanentId: outside uploads directory." };
+    }
 
     try {
         // Concurrently delete the data file and the uploads directory

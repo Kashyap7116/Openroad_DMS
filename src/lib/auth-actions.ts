@@ -3,6 +3,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import sanitize from 'sanitize-filename';
 import type { UserRecord } from '@/app/(dashboard)/admin/users/page';
 import { handleAndLogApiError } from './utils';
 import { redirect } from 'next/navigation';
@@ -143,12 +144,23 @@ export async function updateUser(email: string, newName: string, newImageFile: F
     // Update profile picture if a new one is provided
     if (newImageFile) {
         await ensureDirectoryExists(profilePicturesDir);
-        const sanitizedFileName = newImageFile.name.replace(/[^a-zA-Z0-9._-]/g, '');
+        // Sanitize filename using the sanitize-filename package
+        let sanitizedFileName = sanitize(newImageFile.name);
+        if (!sanitizedFileName) {
+          sanitizedFileName = 'profile-pic';
+        }
         const uniqueFileName = `${Date.now()}-${sanitizedFileName}`;
         const filePath = path.join(profilePicturesDir, uniqueFileName);
-        
+
+        // Ensure the filePath is within profilePicturesDir
+        const resolvedFilePath = path.resolve(filePath);
+        const resolvedProfilePicturesDir = path.resolve(profilePicturesDir);
+        if (!resolvedFilePath.startsWith(resolvedProfilePicturesDir + path.sep)) {
+          return { success: false, error: "Invalid file path." };
+        }
+
         const fileBuffer = Buffer.from(await newImageFile.arrayBuffer());
-        await fs.writeFile(filePath, fileBuffer);
+        await fs.writeFile(resolvedFilePath, fileBuffer);
 
         userToUpdate.image = `/uploads/profile_pictures/${uniqueFileName}`;
         changes.push('profile picture');

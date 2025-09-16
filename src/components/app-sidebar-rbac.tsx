@@ -191,6 +191,11 @@ export default function RBACAppSidebar() {
     return userModules.includes(module.key);
   });
 
+  // Split modules into top and bottom groups
+  const bottomModuleKeys = ['Reports', 'Alerts', 'Admin'];
+  const topModules = availableModules.filter(module => !bottomModuleKeys.includes(module.key));
+  const bottomModules = availableModules.filter(module => bottomModuleKeys.includes(module.key));
+
   const handleLogout = async () => {
     try {
       const result = await signOut();
@@ -241,9 +246,10 @@ export default function RBACAppSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="flex flex-col h-full">
+        {/* Top modules */}
         <SidebarMenu>
-          {availableModules.map((item) => {
+          {topModules.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
             
             if (item.subItems) {
@@ -300,11 +306,76 @@ export default function RBACAppSidebar() {
             );
           })}
         </SidebarMenu>
-      </SidebarContent>
+
+        {/* Spacer to push bottom modules down */}
+        <div className="flex-1" />
+
+        {/* Bottom modules (Reports, Alerts, Admin) */}
+        <div className="pb-2">
+          <SidebarMenu>
+            {bottomModules.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+              
+              if (item.subItems) {
+                return (
+                  <SidebarMenuItem key={item.key}>
+                    <Collapsible defaultOpen={isActive}>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className={cn(
+                          "w-full justify-between",
+                          isActive && "bg-sidebar-accent text-sidebar-accent-foreground"
+                        )}>
+                          <div className="flex items-center">
+                            <item.icon className="h-4 w-4" />
+                            <span className="ml-3">{t(item.title)}</span>
+                          </div>
+                          <ChevronDown className="h-4 w-4" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div className="ml-6 mt-1 space-y-1">
+                          {item.subItems.map((subItem) => {
+                            const isSubActive = pathname === subItem.href;
+                            return (
+                              <div key={subItem.href}>
+                                <SidebarMenuButton asChild className={cn(
+                                  isSubActive && "bg-sidebar-accent text-sidebar-accent-foreground"
+                                )}>
+                                  <Link href={subItem.href}>
+                                    <subItem.icon className="h-4 w-4" />
+                                    <span className="ml-3">{t(subItem.title)}</span>
+                                  </Link>
+                                </SidebarMenuButton>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    </SidebarMenuItem>
+                  );
+                }
+
+                return (
+                  <SidebarMenuItem key={item.key}>
+                    <SidebarMenuButton asChild className={cn(
+                      isActive && "bg-sidebar-accent text-sidebar-accent-foreground"
+                    )}>
+                      <Link href={item.href}>
+                        <item.icon className="h-4 w-4" />
+                        <span className="ml-3">{t(item.title)}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </div>
+        </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border">
         <div className="p-4">
-          <div className="flex items-center space-x-3 mb-3">
+          <div className="flex items-center space-x-3">
             <Avatar className="h-8 w-8">
               <AvatarImage src={user.image || undefined} alt={user.name} />
               <AvatarFallback>
@@ -319,20 +390,6 @@ export default function RBACAppSidebar() {
                 {user.role} • {user.email}
               </p>
             </div>
-          </div>
-          
-          <div className="flex space-x-1">
-            <SidebarMenuButton asChild className="flex-1">
-              <Link href="/settings">
-                <Settings className="h-4 w-4" />
-                <span className="ml-2">{t('Settings')}</span>
-              </Link>
-            </SidebarMenuButton>
-            
-            <SidebarMenuButton onClick={handleLogout} className="flex-1">
-              <LogOut className="h-4 w-4" />
-              <span className="ml-2">{t('Logout')}</span>
-            </SidebarMenuButton>
           </div>
         </div>
       </SidebarFooter>

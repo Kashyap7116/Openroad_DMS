@@ -1130,5 +1130,41 @@
     "timestamp": "2025-09-11T10:43:36.633Z",
     "ip_address": "127.0.0.1",
     "status": "success"
+  },
+  {
+    "user_id": "1ee17418-a2f5-4ca1-aa73-38f89f84bdc0",
+    "user_name": "Mako Jiamjan",
+    "module": "Auth",
+    "action": "Logout",
+    "log_id": "LOG-1757997670890-xpln75w",
+    "timestamp": "2025-09-16T04:41:10.887Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Login",
+    "status": "success",
+    "log_id": "LOG-1757997882059-yc9bw53",
+    "timestamp": "2025-09-16T04:44:42.057Z",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Settings",
+    "action": "Updated profile",
+    "details": {
+      "updated_fields": [
+        "name",
+        "image"
+      ]
+    },
+    "log_id": "LOG-1757999522076-n5c7igw",
+    "timestamp": "2025-09-16T05:12:02.072Z",
+    "ip_address": "127.0.0.1",
+    "status": "success"
   }
 ]

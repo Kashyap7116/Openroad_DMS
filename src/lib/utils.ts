@@ -17,7 +17,7 @@ export function cn(...inputs: ClassValue[]) {
  * @returns A standardized error response object.
  */
 export async function handleAndLogApiError(error: any, context: string) {
-    console.error(`Error in ${context}:`, error);
+    console.error("Error in %s:", context, error);
     try {
         const analysis = await errorAnalysisAlerts({
             errorText: (error as Error).stack || (error as Error).message || String(error),

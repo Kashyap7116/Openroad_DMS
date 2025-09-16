@@ -1,6 +1,6 @@
 
 import { config } from 'dotenv';
-config();
+config({ path: '.env.local' });
 
 import '@/ai/flows/contract-issue-alerts.ts';
 import '@/ai/flows/document-expiry-alerts.ts';
