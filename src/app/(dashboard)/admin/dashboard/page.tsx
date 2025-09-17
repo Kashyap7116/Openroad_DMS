@@ -1,12 +1,12 @@
 
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/modules/shared/components/page-header";
 import { 
     Card,
     CardContent,
     CardHeader,
     CardTitle,
     CardDescription
-} from "@/components/ui/card";
+} from "@/modules/shared/components/ui/ui/card";
 import { StatCard } from "@/components/stat-card";
 import { User, Shield, UserCheck, UserX, Activity } from "lucide-react";
 import {
@@ -16,9 +16,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { getAdminDashboardData } from "@/lib/admin-actions";
-import { Badge } from "@/components/ui/badge";
+} from "@/modules/shared/components/ui/ui/table";
+import { getAdminDashboardData } from "@/modules/admin/services/admin-actions";
+import { Badge } from "@/modules/shared/components/ui/ui/badge";
 
 export default async function AdminDashboardPage() {
   const { stats, recentLogs } = await getAdminDashboardData();
@@ -85,3 +85,7 @@ export default async function AdminDashboardPage() {
     </>
   );
 }
+
+
+
+

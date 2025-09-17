@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
+} from "@/modules/shared/components/ui/ui/dialog";
+import { Label } from "@/modules/shared/components/ui/ui/label";
+import { Badge } from "@/modules/shared/components/ui/ui/badge";
+import { ScrollArea } from "@/modules/shared/components/ui/ui/scroll-area";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import Image from 'next/image';
 import type { MaintenanceRecord } from '@/app/(dashboard)/maintenance/page';
 import { FileText } from "lucide-react";
@@ -99,3 +99,5 @@ export function RecordDetailsDialog({ isOpen, onClose, record }: RecordDetailsDi
     </Dialog>
   );
 }
+
+

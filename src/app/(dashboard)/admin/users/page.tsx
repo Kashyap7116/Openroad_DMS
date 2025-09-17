@@ -2,9 +2,9 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/modules/shared/components/ui/ui/card";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import { PlusCircle, Trash2, Pencil, KeyRound, Loader2 } from "lucide-react";
 import {
   Dialog,
@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/modules/shared/components/ui/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,7 +23,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from "@/modules/shared/components/ui/ui/alert-dialog";
 import {
   Table,
   TableBody,
@@ -31,11 +31,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+} from "@/modules/shared/components/ui/ui/table";
+import { Badge } from '@/modules/shared/components/ui/ui/badge';
+import { cn } from '@/modules/shared/utils/utils';
 import { useToast } from '@/hooks/use-toast';
-import { UserForm } from '@/components/admin/user-form';
+import { UserForm } from '@/modules/admin/components/user-form';
 import { 
   getSupabaseUsers, 
   createSupabaseUser, 
@@ -43,8 +43,8 @@ import {
   deleteSupabaseUser,
   type CreateUserData,
   type UpdateUserData 
-} from '@/lib/supabase-admin-actions';
-import type { UserProfile } from '@/lib/supabase-auth-actions';
+} from '@/modules/admin/services/supabase-admin-actions';
+import type { UserProfile } from '@/modules/auth/services/supabase-auth-actions';
 
 export type UserRecord = UserProfile;
 
@@ -295,3 +295,8 @@ export default function UsersPage() {
     </>
   );
 }
+
+
+
+
+

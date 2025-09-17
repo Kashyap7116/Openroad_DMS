@@ -8,9 +8,9 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from "@/modules/shared/components/ui/ui/dialog";
+import { Button } from "@/modules/shared/components/ui/ui/button";
+import { ScrollArea } from "@/modules/shared/components/ui/ui/scroll-area";
 import { Download, Printer } from "lucide-react";
 import type { PayrollRecord } from '@/app/(dashboard)/hr/payroll/page';
 import jsPDF from 'jspdf';
@@ -210,3 +210,5 @@ export function PayslipDialog({ isOpen, onClose, record, period, months }: Paysl
     </Dialog>
   );
 }
+
+

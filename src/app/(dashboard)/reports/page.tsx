@@ -1,8 +1,7 @@
+"use client";
 
-'use client';
-
-import { ReportsClient } from '@/components/reports/reports-client';
-import { PageHeader } from '@/components/page-header';
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { ReportsClient } from "@/modules/shared/components/reports/reports-client";
 
 export default function ReportsPage() {
   return (

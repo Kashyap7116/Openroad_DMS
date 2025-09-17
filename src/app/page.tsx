@@ -10,11 +10,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { signInWithPassword } from "@/lib/supabase-auth-actions";
+} from "@/modules/shared/components/ui/ui/card";
+import { Input } from "@/modules/shared/components/ui/ui/input";
+import { Label } from "@/modules/shared/components/ui/ui/label";
+import { Button } from "@/modules/shared/components/ui/ui/button";
+import { signInWithPassword } from "@/modules/auth/services/supabase-auth-actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 
@@ -137,3 +137,6 @@ export default function LoginPage() {
     </div>
   );
 }
+
+
+

@@ -2,14 +2,14 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/modules/shared/components/page-header";
 import { StatCard } from '@/components/stat-card';
 import { DollarIcon } from '@/components/icons/dollar-icon';
-import { EmployeeFinanceClient } from '@/components/finance/employee-finance-client';
-import { VehicleFinanceClient } from "@/components/finance/vehicle-finance-client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getFinanceSummary } from '@/lib/finance-actions';
-import { Skeleton } from '@/components/ui/skeleton';
+import { EmployeeFinanceClient } from '@/modules/finance/components/employee-finance-client';
+import { VehicleFinanceClient } from "@/modules/finance/components/vehicle-finance-client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/modules/shared/components/ui/ui/tabs';
+import { getFinanceSummary } from '@/modules/finance/services/finance-actions';
+import { Skeleton } from '@/modules/shared/components/ui/ui/skeleton';
 import { Briefcase } from 'lucide-react';
 
 type SummaryData = {
@@ -111,3 +111,8 @@ export default function FinancePage() {
     </>
   );
 }
+
+
+
+
+

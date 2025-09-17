@@ -3,9 +3,9 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/modules/shared/components/ui/ui/card";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import { PlusCircle, ListFilter, Trash2, Pencil, Eye, Upload, Loader2, FilterX } from "lucide-react";
 import {
   Dialog,
@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/modules/shared/components/ui/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,8 +24,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Input } from '@/components/ui/input';
+} from "@/modules/shared/components/ui/ui/alert-dialog"
+import { Input } from '@/modules/shared/components/ui/ui/input';
 import {
   Table,
   TableBody,
@@ -33,7 +33,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/modules/shared/components/ui/ui/table";
 import { MaintenanceForm } from '@/components/maintenance-form';
 import { RecordDetailsDialog } from '@/components/record-details-dialog';
 import type { VehicleRecord } from '@/app/(dashboard)/purchase/page';
@@ -42,9 +42,9 @@ import { DollarIcon } from '@/components/icons/dollar-icon';
 import { Wrench } from 'lucide-react';
 import { CarIcon } from '@/components/icons/car-icon';
 import { ClockIcon } from '@/components/icons/clock-icon';
-import { getAllVehicles, getVehicle, saveVehicle } from '@/lib/vehicle-actions';
+import { getAllVehicles, getVehicle, saveVehicle } from '@/modules/vehicles/services/vehicle-actions';
 import { useToast } from '@/hooks/use-toast';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/modules/shared/components/ui/ui/label';
 
 export type MaintenanceRecord = {
   maintenance_id: string;
@@ -391,3 +391,8 @@ export default function MaintenancePage() {
     </>
   );
 }
+
+
+
+
+

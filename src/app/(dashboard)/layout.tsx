@@ -1,6 +1,5 @@
-
-import { AppLayout } from "@/components/app-layout";
-import { getCurrentUser } from "@/lib/supabase-auth-actions";
+import { getCurrentUser } from "@/modules/auth/services/supabase-auth-actions";
+import { AppLayout } from "@/modules/shared/components/app-layout";
 import type { PropsWithChildren } from "react";
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {

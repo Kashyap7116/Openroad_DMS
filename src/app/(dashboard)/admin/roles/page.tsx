@@ -2,18 +2,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/modules/shared/components/page-header";
 import { 
     Card,
     CardContent,
     CardHeader,
     CardTitle,
     CardDescription
-} from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { getRoles, saveRoles } from '@/lib/admin-actions';
+} from "@/modules/shared/components/ui/ui/card";
+import { Button } from '@/modules/shared/components/ui/ui/button';
+import { Checkbox } from '@/modules/shared/components/ui/ui/checkbox';
+import { Label } from '@/modules/shared/components/ui/ui/label';
+import { getRoles, saveRoles } from '@/modules/admin/services/admin-actions';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
@@ -134,3 +134,7 @@ export default function RolesPage() {
     </>
   );
 }
+
+
+
+

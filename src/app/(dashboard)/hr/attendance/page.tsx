@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { PageHeader } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import {
   Upload,
   Trash2,
@@ -14,13 +14,13 @@ import {
   UserX,
   Clock,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/modules/shared/components/ui/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/modules/shared/components/ui/ui/select';
 import { StatCard } from '@/components/stat-card';
 import {
   Dialog,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/modules/shared/components/ui/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,16 +30,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from "@/modules/shared/components/ui/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { processAttendanceFile } from '@/ai/flows/process-attendance-file';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { saveAttendanceData, saveAttendanceRules, getProcessedAttendance } from '@/lib/hr-actions';
-import { Checkbox } from '@/components/ui/checkbox';
-import { AttendanceTable } from '@/components/hr/attendance-table';
-import { UploadDialog } from '@/components/hr/upload-dialog';
-import { HolidayDialog } from '@/components/hr/holiday-dialog';
+import { Label } from '@/modules/shared/components/ui/ui/label';
+import { Input } from '@/modules/shared/components/ui/ui/input';
+import { saveAttendanceData, saveAttendanceRules, getProcessedAttendance } from '@/modules/hr/services/hr-actions';
+import { Checkbox } from '@/modules/shared/components/ui/ui/checkbox';
+import { AttendanceTable } from '@/modules/hr/components/hr/attendance-table';
+import { UploadDialog } from '@/modules/hr/components/hr/upload-dialog';
+import { HolidayDialog } from '@/modules/hr/components/hr/holiday-dialog';
 
 export type AttendanceRecord = {
   employee_id: string;
@@ -376,3 +376,8 @@ export default function AttendancePage() {
     </>
   );
 }
+
+
+
+
+

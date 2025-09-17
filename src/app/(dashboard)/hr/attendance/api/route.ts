@@ -1,5 +1,5 @@
 
-import { getRawAttendanceData } from "@/lib/hr-actions";
+import { getRawAttendanceData } from "@/modules/hr/services/hr-actions";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -18,3 +18,4 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Failed to fetch attendance data" }, { status: 500 });
   }
 }
+

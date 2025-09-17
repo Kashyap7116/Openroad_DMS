@@ -1,18 +1,18 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '@/modules/shared/components/ui/ui/card'
+import { Button } from '@/modules/shared/components/ui/ui/button'
+import { Badge } from '@/modules/shared/components/ui/ui/badge'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/modules/shared/components/ui/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
 import { 
   getSupabaseUsers, 
   getSupabaseAuthUsers,
   createSupabaseUser 
-} from '@/lib/supabase-admin-actions'
-import { getUsers } from '@/lib/admin-actions'
-import { PageHeader } from '@/components/page-header'
+} from '@/modules/admin/services/supabase-admin-actions'
+import { getUsers } from '@/modules/admin/services/admin-actions'
+import { PageHeader } from '@/modules/shared/components/page-header'
 import { Loader2, Users, Database, Shield, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function SupabaseIntegrationPage() {
@@ -340,3 +340,7 @@ export default function SupabaseIntegrationPage() {
     </>
   )
 }
+
+
+
+

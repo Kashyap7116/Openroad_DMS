@@ -3,24 +3,24 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { PageHeader } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import { ListFilter, FileText, Download, Loader2 } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/modules/shared/components/ui/ui/table";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/modules/shared/components/ui/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from '@/modules/shared/components/ui/ui/avatar';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/modules/shared/components/ui/ui/select';
 import { useToast } from "@/hooks/use-toast";
-import { cn } from '@/lib/utils';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { getProcessedAttendance, getEmployees, savePayrollData, getPayrollDataForMonth } from '@/lib/hr-actions';
-import { getEmployeeAdjustments } from '@/lib/finance-actions';
+import { cn } from '@/modules/shared/utils/utils';
+import { Checkbox } from '@/modules/shared/components/ui/ui/checkbox';
+import { Label } from '@/modules/shared/components/ui/ui/label';
+import { Input } from '@/modules/shared/components/ui/ui/input';
+import { ScrollArea } from '@/modules/shared/components/ui/ui/scroll-area';
+import { getProcessedAttendance, getEmployees, savePayrollData, getPayrollDataForMonth } from '@/modules/hr/services/hr-actions';
+import { getEmployeeAdjustments } from '@/modules/finance/services/finance-actions';
 import { PayslipDialog } from '@/components/payslip-dialog';
-import type { Adjustment } from '@/components/finance/employee-finance-client';
-import { getPayrollMonthYearForDate } from '@/lib/utils';
+import type { Adjustment } from '@/modules/finance/components/employee-finance-client';
+import { getPayrollMonthYearForDate } from '@/modules/shared/utils/utils';
 
 
 export type DeductionItem = {
@@ -360,3 +360,8 @@ export default function PayrollPage() {
     </>
   );
 }
+
+
+
+
+

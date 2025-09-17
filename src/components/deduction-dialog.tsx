@@ -9,13 +9,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/modules/shared/components/ui/ui/dialog";
+import { Button } from "@/modules/shared/components/ui/ui/button";
+import { Label } from '@/modules/shared/components/ui/ui/label';
+import { Input } from '@/modules/shared/components/ui/ui/input';
+import { Textarea } from '@/modules/shared/components/ui/ui/textarea';
 import { PlusCircle, Trash2 } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea } from '@/modules/shared/components/ui/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import type { PayrollRecord, DeductionItem } from '@/app/(dashboard)/hr/payroll/page';
 
@@ -126,3 +126,5 @@ export function DeductionDialog({ isOpen, onClose, record, onSave }: DeductionDi
     </Dialog>
   );
 }
+
+

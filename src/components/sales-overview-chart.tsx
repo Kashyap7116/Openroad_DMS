@@ -5,9 +5,9 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/modules/shared/components/ui/ui/chart";
 import { BarChart, CartesianGrid, XAxis, Bar, YAxis, ResponsiveContainer,defs,linearGradient } from "recharts";
-import { getAllVehicles } from "@/lib/vehicle-actions";
+import { getAllVehicles } from "@/modules/vehicles/services/vehicle-actions";
 import { useEffect, useState } from "react";
 
 const initialChartData = [
@@ -94,3 +94,7 @@ export function SalesOverviewChart() {
         </ChartContainer>
     )
 }
+
+
+
+

@@ -5,8 +5,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+} from "@/modules/shared/components/ui/ui/card";
+import { cn } from "@/modules/shared/utils/utils";
 
 type StatCardProps = {
   title: string;
@@ -63,3 +63,6 @@ export function StatCard({ title, value, icon: Icon, description, iconBgColor, i
     </Card>
   );
 }
+
+
+

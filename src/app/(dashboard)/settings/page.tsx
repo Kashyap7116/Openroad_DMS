@@ -2,17 +2,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { PageHeader } from '@/modules/shared/components/page-header';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/modules/shared/components/ui/ui/card';
+import { Button } from '@/modules/shared/components/ui/ui/button';
+import { Input } from '@/modules/shared/components/ui/ui/input';
+import { Label } from '@/modules/shared/components/ui/ui/label';
+import { Avatar, AvatarImage, AvatarFallback } from '@/modules/shared/components/ui/ui/avatar';
 import { Loader2, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { getCurrentUser } from '@/lib/supabase-auth-actions';
-import { updateProfileAction } from '@/lib/profile-actions';
-import type { UserProfile } from '@/lib/supabase-auth-actions';
+import { getCurrentUser } from '@/modules/auth/services/supabase-auth-actions';
+import { updateProfileAction } from '@/modules/auth/services/profile-actions';
+import type { UserProfile } from '@/modules/auth/services/supabase-auth-actions';
 
 function fileToDataUri(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -156,3 +156,7 @@ export default function SettingsPage() {
         </>
     );
 }
+
+
+
+

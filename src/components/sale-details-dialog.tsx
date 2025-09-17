@@ -8,11 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from "@/modules/shared/components/ui/ui/dialog";
+import { Label } from "@/modules/shared/components/ui/ui/label";
+import { ScrollArea } from "@/modules/shared/components/ui/ui/scroll-area";
 import Image from 'next/image';
-import { cn } from "@/lib/utils";
+import { cn } from "@/modules/shared/utils/utils";
 import { FileText } from "lucide-react";
 
 export type SaleRecord = {
@@ -144,3 +144,6 @@ export function SaleDetailsDialog({ isOpen, onClose, record, vehicleLicense }: S
     </Dialog>
   );
 }
+
+
+

@@ -1,6 +1,6 @@
 
-import { PageHeader } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/modules/shared/components/page-header";
+import { Button } from "@/modules/shared/components/ui/ui/button";
 import { Settings } from "lucide-react";
 import { AlertsClient } from "./alerts-client";
 
@@ -21,3 +21,6 @@ export default function AlertsPage() {
     </>
   );
 }
+
+
+
