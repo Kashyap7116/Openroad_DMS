@@ -210,7 +210,7 @@ export async function cleanupOldLogs() {
  * Use Supabase Auth and profiles table instead.
  * @returns Empty array for compatibility.
  */
-export async function getUsers() {
+export async function getUsers(): Promise<Array<{ active?: boolean }>> {
   console.log("⚠️ getUsers: Legacy function - use Supabase profiles instead");
   return [];
 }
@@ -220,7 +220,7 @@ export async function getUsers() {
  * Use Supabase role-based permissions instead.
  * @returns Empty array for compatibility.
  */
-export async function getRoles() {
+export async function getRoles(): Promise<Array<any>> {
   console.log("⚠️ getRoles: Legacy function - use Supabase roles instead");
   return [];
 }
@@ -234,4 +234,42 @@ export async function getRoles() {
 export async function saveRoles(roles: any) {
   console.log("⚠️ saveRoles: Legacy function - use Supabase roles instead");
   return { success: true };
+}
+
+/**
+ * Get admin dashboard data including stats and recent logs
+ */
+export async function getAdminDashboardData() {
+  try {
+    // Get user stats (these would normally come from Supabase)
+    const users = await getUsers();
+    const roles = await getRoles();
+
+    // Get recent logs
+    const recentLogs = await getLogs(undefined, 10);
+
+    const stats = {
+      totalUsers: users?.length || 0,
+      activeUsers: users?.filter((user) => user.active !== false)?.length || 0,
+      inactiveUsers:
+        users?.filter((user) => user.active === false)?.length || 0,
+      totalRoles: roles?.length || 0,
+    };
+
+    return {
+      stats,
+      recentLogs: recentLogs || [],
+    };
+  } catch (error) {
+    console.error("Error fetching admin dashboard data:", error);
+    return {
+      stats: {
+        totalUsers: 0,
+        activeUsers: 0,
+        inactiveUsers: 0,
+        totalRoles: 0,
+      },
+      recentLogs: [],
+    };
+  }
 }

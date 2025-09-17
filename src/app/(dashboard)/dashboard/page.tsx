@@ -26,6 +26,9 @@ import {
   Wrench,
 } from "lucide-react";
 
+// Force dynamic rendering to prevent static generation errors
+export const dynamic = "force-dynamic";
+
 async function getDashboardData() {
   const allVehicles = await getAllVehicles();
 

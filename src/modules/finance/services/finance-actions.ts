@@ -1,7 +1,11 @@
 "use server";
 
-import { saveFinancialRecord } from "@/lib/supabase-operations";
+import { createFinancialRecord } from "@/lib/supabase-operations";
 import { createClient } from "@/lib/supabase/server";
+import {
+  formatValidationErrors,
+  validateFinanceForm,
+} from "@/lib/validation-schemas";
 import { addLog } from "../../admin/services/admin-actions";
 import { getCurrentUser } from "../../auth/services/supabase-auth-actions";
 import { handleAndLogApiError } from "../../shared/utils/utils";
@@ -19,7 +23,7 @@ export async function getFinanceSummary() {
     // Get financial records for summary
     const { data: records, error } = await supabase
       .from("financial_records")
-      .select("transaction_type, amount, transaction_date")
+      .select("transaction_type, amount, date")
       .eq("status", "Completed");
 
     if (error) {
@@ -43,7 +47,7 @@ export async function getFinanceSummary() {
     let monthlyExpenses = 0;
 
     (records || []).forEach((record: any) => {
-      const recordDate = new Date(record.transaction_date);
+      const recordDate = new Date(record.date);
       const amount = parseFloat(record.amount) || 0;
 
       if (record.transaction_type === "Income") {
@@ -88,6 +92,33 @@ export async function saveOfficeTransaction(formData: FormData) {
 
     const user = await getCurrentUser();
 
+    // Extract and prepare form data for validation
+    const rawData = {
+      type: formData.get("type") as string,
+      category: formData.get("category") as string,
+      amount: parseFloat(formData.get("amount") as string),
+      date: formData.get("date") as string,
+      remarks: (formData.get("description") as string) || "",
+      license_plate: "Office", // Office transactions are linked to "Office"
+      uploaded_file: null, // FormData file handling would go here
+    };
+
+    // Validate form data using Zod schema
+    console.log("🔍 Validating finance form data...");
+    const validationResult = validateFinanceForm(rawData);
+
+    if (!validationResult.success) {
+      const errorMessages = formatValidationErrors(validationResult.error);
+      console.error("❌ Finance validation failed:", errorMessages);
+      throw new Error(
+        `Validation failed: ${errorMessages
+          .map((err) => err.message)
+          .join(", ")}`
+      );
+    }
+
+    console.log("✅ Finance form validation passed");
+
     // Extract form data
     const transactionData = {
       transaction_type: formData.get("type") as string,
@@ -108,8 +139,26 @@ export async function saveOfficeTransaction(formData: FormData) {
       throw new Error("Missing required transaction fields");
     }
 
+    // Map the data to match createFinancialRecord parameters
+    const financialRecordData = {
+      type: transactionData.transaction_type as
+        | "Income"
+        | "Expense"
+        | "Commission"
+        | "Bonus"
+        | "Adjustment",
+      category: transactionData.category,
+      amount: transactionData.amount,
+      description: transactionData.description,
+      date: transactionData.transaction_date,
+      metadata: {
+        account: transactionData.account,
+        status: transactionData.status,
+      },
+    };
+
     // Save to Supabase
-    const { success, error } = await saveFinancialRecord(transactionData);
+    const { success, error } = await createFinancialRecord(financialRecordData);
 
     if (!success) {
       throw new Error(error || "Failed to save transaction");
@@ -252,14 +301,14 @@ export async function getFinancialRecordsFiltered(filters?: {
     let query = supabase
       .from("financial_records")
       .select("*")
-      .order("transaction_date", { ascending: false });
+      .order("date", { ascending: false });
 
     // Apply filters
     if (filters?.startDate) {
-      query = query.gte("transaction_date", filters.startDate);
+      query = query.gte("date", filters.startDate);
     }
     if (filters?.endDate) {
-      query = query.lte("transaction_date", filters.endDate);
+      query = query.lte("date", filters.endDate);
     }
     if (filters?.transactionType) {
       query = query.eq("transaction_type", filters.transactionType);
@@ -301,7 +350,7 @@ export async function getEmployeeAdjustments(employeeId?: string) {
       .from("financial_records")
       .select("*")
       .eq("category", "Employee Adjustment")
-      .order("transaction_date", { ascending: false });
+      .order("date", { ascending: false });
 
     if (employeeId) {
       query = query.eq("details->>employee_id", employeeId);
@@ -349,8 +398,7 @@ export async function saveEmployeeAdjustment(
       category: "Employee Adjustment",
       amount: parseFloat(adjustmentData.amount) || 0,
       description: adjustmentData.description || "Employee adjustment",
-      transaction_date:
-        adjustmentData.date || new Date().toISOString().split("T")[0],
+      date: adjustmentData.date || new Date().toISOString().split("T")[0],
       account: adjustmentData.account || "Main Account",
       status: "Completed",
       details: {

@@ -1,0 +1,11 @@
+
+{
+  "standard_work_hours": {
+    "in_time": "08:30",
+    "out_time": "17:30"
+  },
+  "overtime_rules": {
+    "minimum_minutes_after_out_time": 30
+  },
+  "weekly_holidays": []
+}

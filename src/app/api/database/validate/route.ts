@@ -1,9 +1,9 @@
-import { createSupabaseAdmin } from "@/lib/supabase";
+import { createSupabaseAdminClient } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdmin();
+    const supabase = createSupabaseAdminClient();
     const validation: any = {};
 
     // Validate Vehicles

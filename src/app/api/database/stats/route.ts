@@ -1,9 +1,9 @@
-import { createSupabaseAdmin } from "@/lib/supabase";
+import { createSupabaseAdminClient } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdmin();
+    const supabase = createSupabaseAdminClient();
     const stats: any = {};
 
     // Vehicle Statistics
@@ -99,4 +99,8 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function POST(request: NextRequest) {
+  return GET(request); // Alias POST to GET for convenience
 }

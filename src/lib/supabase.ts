@@ -37,6 +37,9 @@ export const createSupabaseAdminClient = () => {
   });
 };
 
+// Alias for backward compatibility
+export const createSupabaseAdmin = createSupabaseAdminClient;
+
 // Database types (will be updated as we create the schema)
 export interface Database {
   public: {

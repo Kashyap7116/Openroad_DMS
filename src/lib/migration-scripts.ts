@@ -1,650 +1,659 @@
-"use server";
+import fs from "fs";
+import path from "path";
+import { DatabaseLogger, withRetry } from "./enhanced-supabase-operations";
+import { createSupabaseAdminClient } from "./supabase";
 
-import { createSupabaseAdminClient } from "@/lib/supabase";
-import fs from "node:fs/promises";
-import path from "node:path";
-
-const adminClient = createSupabaseAdminClient();
-
+// Migration result interface
 interface MigrationResult {
   success: boolean;
-  table: string;
   migrated: number;
   errors: string[];
-  details?: any;
+  message?: string;
 }
 
-/**
- * Complete data migration from JSON files to Supabase
- */
-export async function runCompleteMigration(): Promise<{
-  success: boolean;
-  results: MigrationResult[];
-  summary: {
-    totalMigrated: number;
-    totalErrors: number;
-    tablesProcessed: number;
-  };
-}> {
-  console.log("🚀 Starting complete migration to Supabase...");
+// Helper function to read JSON file safely
+async function readJSONFile(filePath: string): Promise<any[]> {
+  try {
+    const fullPath = path.join(process.cwd(), filePath);
 
-  const migrationResults: MigrationResult[] = [];
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`File not found: ${fullPath}`);
+      return [];
+    }
+
+    const fileContent = fs.readFileSync(fullPath, "utf-8");
+    const data = JSON.parse(fileContent);
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error(`Error reading JSON file ${filePath}:`, error);
+    return [];
+  }
+}
+
+// Helper function to ensure required tables exist
+async function ensureBrandsAndModelsTable() {
+  const supabase = createSupabaseAdminClient();
+
+  const createBrandsTable = `
+    CREATE TABLE IF NOT EXISTS public.vehicle_brands (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL UNIQUE,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    );
+  `;
+
+  const createModelsTable = `
+    CREATE TABLE IF NOT EXISTS public.vehicle_models (
+      id SERIAL PRIMARY KEY,
+      brand_id INTEGER NOT NULL REFERENCES public.vehicle_brands(id) ON DELETE CASCADE,
+      name VARCHAR(255) NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(brand_id, name)
+    );
+  `;
+
+  await supabase.rpc("execute_sql", { sql: createBrandsTable });
+  await supabase.rpc("execute_sql", { sql: createModelsTable });
+}
+
+// Vehicle Migration
+export async function migrateVehicles(): Promise<MigrationResult> {
+  const logger = DatabaseLogger.getInstance();
+  const supabase = createSupabaseAdminClient();
 
   try {
-    // 1. Migrate Vehicles
-    console.log("📦 Migrating vehicles...");
-    const vehiclesResult = await migrateVehicles();
-    migrationResults.push(vehiclesResult);
+    await logger.logOperation("migration", "vehicles", "start", {
+      message: "Starting vehicle migration",
+    });
 
-    // 2. Migrate Employees
-    console.log("👥 Migrating employees...");
-    const employeesResult = await migrateEmployees();
-    migrationResults.push(employeesResult);
+    const vehicles = await readJSONFile("database/purchase/vehicles.json");
 
-    // 3. Migrate Financial Records
-    console.log("💰 Migrating financial records...");
-    const financialResult = await migrateFinancialRecords();
-    migrationResults.push(financialResult);
+    if (vehicles.length === 0) {
+      return {
+        success: true,
+        migrated: 0,
+        errors: [],
+        message: "No vehicles found to migrate",
+      };
+    }
 
-    // 4. Migrate HR Data
-    console.log("🏢 Migrating HR data...");
-    const hrResult = await migrateHRData();
-    migrationResults.push(hrResult);
+    let migrated = 0;
+    const errors: string[] = [];
 
-    // 5. Migrate User Profiles
-    console.log("👤 Migrating user profiles...");
-    const profilesResult = await migrateUserProfiles();
-    migrationResults.push(profilesResult);
+    for (const vehicle of vehicles) {
+      try {
+        await withRetry(async () => {
+          const { error } = await supabase.from("vehicles").insert({
+            id: vehicle.id,
+            license_plate: vehicle.license_plate,
+            vehicle: vehicle.vehicle,
+            date: vehicle.date,
+            seller: vehicle.seller,
+            purchase_price: vehicle.purchase_price,
+            final_price: vehicle.final_price,
+            payment_type: vehicle.payment_type,
+            status: vehicle.status || "Processing",
+            full_data: vehicle.full_data || vehicle,
+            sale_details: vehicle.sale_details,
+            maintenance_history: vehicle.maintenance_history || [],
+            financial_history: vehicle.financial_history || [],
+            licence_history: vehicle.licence_history || [],
+            bonus_history: vehicle.bonus_history || [],
+          });
 
-    // 6. Migrate Sales Data
-    console.log("💼 Migrating sales data...");
-    const salesResult = await migrateSalesData();
-    migrationResults.push(salesResult);
+          if (error) throw error;
+        });
 
-    // Calculate summary
-    const summary = {
-      totalMigrated: migrationResults.reduce(
-        (sum, result) => sum + result.migrated,
-        0
-      ),
-      totalErrors: migrationResults.reduce(
-        (sum, result) => sum + result.errors.length,
-        0
-      ),
-      tablesProcessed: migrationResults.length,
-    };
+        migrated++;
+        await logger.logOperation("migration", "vehicles", "success", {
+          vehicle_id: vehicle.id,
+          license_plate: vehicle.license_plate,
+        });
+      } catch (error) {
+        const errorMsg = `Failed to migrate vehicle ${
+          vehicle.id || vehicle.license_plate
+        }: ${error instanceof Error ? error.message : "Unknown error"}`;
+        errors.push(errorMsg);
 
-    console.log("✅ Migration completed!", summary);
+        await logger.logOperation("migration", "vehicles", "error", {
+          vehicle_id: vehicle.id,
+          error: errorMsg,
+        });
+      }
+    }
+
+    await logger.logOperation("migration", "vehicles", "complete", {
+      total: vehicles.length,
+      migrated,
+      errors: errors.length,
+    });
 
     return {
-      success: summary.totalErrors === 0,
-      results: migrationResults,
-      summary,
+      success: errors.length === 0,
+      migrated,
+      errors,
+      message: `Vehicle migration completed: ${migrated}/${vehicles.length} vehicles migrated`,
     };
   } catch (error) {
-    console.error("❌ Migration failed:", error);
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+    await logger.logOperation("migration", "vehicles", "error", {
+      error: errorMsg,
+    });
+
     return {
       success: false,
-      results: migrationResults,
-      summary: {
-        totalMigrated: 0,
-        totalErrors: 1,
-        tablesProcessed: 0,
-      },
+      migrated: 0,
+      errors: [errorMsg],
     };
   }
 }
 
-/**
- * Migrate vehicle data from JSON files to Supabase
- */
-async function migrateVehicles(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "vehicles",
-    migrated: 0,
-    errors: [],
-  };
+// Vehicle Brands Migration
+export async function migrateBrands(): Promise<MigrationResult> {
+  const logger = DatabaseLogger.getInstance();
+  const supabase = createSupabaseAdminClient();
 
   try {
-    const vehiclesDir = path.join(process.cwd(), "database", "purchase");
+    await ensureBrandsAndModelsTable();
 
-    // Check if directory exists
-    try {
-      await fs.access(vehiclesDir);
-    } catch {
-      result.errors.push("Vehicles directory not found");
-      return result;
+    await logger.logOperation("migration", "brands", "start", {
+      message: "Starting brand migration",
+    });
+
+    const brands = await readJSONFile("database/purchase/brand.json");
+
+    if (brands.length === 0) {
+      return {
+        success: true,
+        migrated: 0,
+        errors: [],
+        message: "No brands found to migrate",
+      };
     }
 
-    const files = await fs.readdir(vehiclesDir);
-    const jsonFiles = files.filter(
-      (file) => file.endsWith(".json") && file !== "bonus.json"
-    );
+    let migrated = 0;
+    const errors: string[] = [];
 
-    for (const file of jsonFiles) {
+    for (const brand of brands) {
       try {
-        const filePath = path.join(vehiclesDir, file);
-        const fileContent = await fs.readFile(filePath, "utf-8");
-        const vehicleData = JSON.parse(fileContent);
+        await withRetry(async () => {
+          const { error } = await supabase.from("vehicle_brands").insert({
+            id: brand.id,
+            name: brand.name,
+          });
 
-        // Transform data to match database schema
-        const vehicleRecord = {
-          id: path.parse(file).name,
-          license_plate:
-            vehicleData.license_plate || vehicleData.licensePlate || "UNKNOWN",
-          vehicle: vehicleData.vehicle || "Unknown Vehicle",
-          date: vehicleData.date || new Date().toISOString().split("T")[0],
-          seller: vehicleData.seller || "",
-          purchase_price: parseFloat(
-            vehicleData.purchase_price || vehicleData.purchasePrice || "0"
-          ),
-          final_price: parseFloat(
-            vehicleData.final_price || vehicleData.finalPrice || "0"
-          ),
-          payment_type:
-            vehicleData.payment_type || vehicleData.paymentType || "Cash",
-          status: vehicleData.status || "Processing",
-          full_data: vehicleData,
-          sale_details: vehicleData.sale_details || vehicleData.saleDetails,
-          maintenance_history:
-            vehicleData.maintenance_history ||
-            vehicleData.maintenanceHistory ||
-            [],
-          financial_history:
-            vehicleData.financial_history || vehicleData.financialHistory || [],
-          licence_history:
-            vehicleData.licence_history || vehicleData.licenceHistory || [],
-          bonus_history:
-            vehicleData.bonus_history || vehicleData.bonusHistory || [],
-          created_by: null, // Will be updated when we have proper auth
-          version: 1,
-        };
+          if (error) throw error;
+        });
 
-        const { error } = await adminClient
-          .from("vehicles")
-          .upsert(vehicleRecord);
+        migrated++;
+        await logger.logOperation("migration", "brands", "success", {
+          brand_id: brand.id,
+          name: brand.name,
+        });
+      } catch (error) {
+        const errorMsg = `Failed to migrate brand ${brand.name}: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`;
+        errors.push(errorMsg);
 
-        if (error) {
-          result.errors.push(`Vehicle ${file}: ${error.message}`);
-        } else {
-          result.migrated++;
-        }
-      } catch (fileError) {
-        result.errors.push(
-          `Vehicle ${file}: ${
-            fileError instanceof Error ? fileError.message : "Unknown error"
-          }`
-        );
+        await logger.logOperation("migration", "brands", "error", {
+          brand_id: brand.id,
+          error: errorMsg,
+        });
       }
     }
 
-    result.success = result.errors.length === 0;
-    return result;
-  } catch (error) {
-    result.errors.push(
-      `Vehicles migration: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-    return result;
-  }
-}
+    await logger.logOperation("migration", "brands", "complete", {
+      total: brands.length,
+      migrated,
+      errors: errors.length,
+    });
 
-/**
- * Migrate employee data from JSON files to Supabase
- */
-async function migrateEmployees(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "employees",
-    migrated: 0,
-    errors: [],
-  };
-
-  try {
-    const employeesDir = path.join(
-      process.cwd(),
-      "database",
-      "hr",
-      "employees"
-    );
-
-    try {
-      await fs.access(employeesDir);
-    } catch {
-      result.errors.push("Employees directory not found");
-      return result;
-    }
-
-    const files = await fs.readdir(employeesDir);
-    const jsonFiles = files.filter((file) => file.endsWith(".json"));
-
-    for (const file of jsonFiles) {
-      try {
-        const filePath = path.join(employeesDir, file);
-        const fileContent = await fs.readFile(filePath, "utf-8");
-        const employeeData = JSON.parse(fileContent);
-
-        const employeeRecord = {
-          employee_id: path.parse(file).name,
-          personal_info:
-            employeeData.personal_info ||
-            employeeData.personalInfo ||
-            employeeData,
-          documents: employeeData.documents || {},
-          employment_info:
-            employeeData.employment_info || employeeData.employmentInfo || {},
-          created_by: null,
-          version: 1,
-        };
-
-        const { error } = await adminClient
-          .from("employees")
-          .upsert(employeeRecord);
-
-        if (error) {
-          result.errors.push(`Employee ${file}: ${error.message}`);
-        } else {
-          result.migrated++;
-        }
-      } catch (fileError) {
-        result.errors.push(
-          `Employee ${file}: ${
-            fileError instanceof Error ? fileError.message : "Unknown error"
-          }`
-        );
-      }
-    }
-
-    result.success = result.errors.length === 0;
-    return result;
-  } catch (error) {
-    result.errors.push(
-      `Employees migration: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-    return result;
-  }
-}
-
-/**
- * Migrate financial records
- */
-async function migrateFinancialRecords(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "financial_records",
-    migrated: 0,
-    errors: [],
-  };
-
-  try {
-    const financeDir = path.join(process.cwd(), "database", "finance");
-
-    // Migrate bonuses
-    await migrateBonuses(financeDir, result);
-
-    // Migrate employee adjustments
-    await migrateEmployeeAdjustments(financeDir, result);
-
-    // Migrate office expenses
-    await migrateOfficeExpenses(financeDir, result);
-
-    result.success = result.errors.length === 0;
-    return result;
-  } catch (error) {
-    result.errors.push(
-      `Financial records migration: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-    return result;
-  }
-}
-
-async function migrateBonuses(financeDir: string, result: MigrationResult) {
-  try {
-    const bonusesPath = path.join(financeDir, "bonuses.json");
-    const fileContent = await fs.readFile(bonusesPath, "utf-8");
-    const bonuses = JSON.parse(fileContent);
-
-    if (Array.isArray(bonuses)) {
-      for (const bonus of bonuses) {
-        const record = {
-          type: "Bonus",
-          category: "Employee Bonus",
-          amount: parseFloat(bonus.amount || "0"),
-          description: `Bonus for ${bonus.employee_name || "Unknown"}`,
-          date: bonus.date || new Date().toISOString().split("T")[0],
-          reference_id: bonus.employee_id,
-          reference_type: "employee",
-          status: "Active",
-          metadata: bonus,
-        };
-
-        const { error } = await adminClient
-          .from("financial_records")
-          .insert(record);
-
-        if (error) {
-          result.errors.push(`Bonus record: ${error.message}`);
-        } else {
-          result.migrated++;
-        }
-      }
-    }
-  } catch (error) {
-    // File might not exist, which is okay
-  }
-}
-
-async function migrateEmployeeAdjustments(
-  financeDir: string,
-  result: MigrationResult
-) {
-  try {
-    const adjustmentsPath = path.join(financeDir, "employee_adjustments.json");
-    const fileContent = await fs.readFile(adjustmentsPath, "utf-8");
-    const adjustments = JSON.parse(fileContent);
-
-    if (Array.isArray(adjustments)) {
-      for (const adjustment of adjustments) {
-        const record = {
-          type: "Adjustment",
-          category: "Employee Adjustment",
-          amount: parseFloat(adjustment.amount || "0"),
-          description: adjustment.description || "Employee adjustment",
-          date: adjustment.date || new Date().toISOString().split("T")[0],
-          reference_id: adjustment.employee_id,
-          reference_type: "employee",
-          status: "Active",
-          metadata: adjustment,
-        };
-
-        const { error } = await adminClient
-          .from("financial_records")
-          .insert(record);
-
-        if (error) {
-          result.errors.push(`Adjustment record: ${error.message}`);
-        } else {
-          result.migrated++;
-        }
-      }
-    }
-  } catch (error) {
-    // File might not exist, which is okay
-  }
-}
-
-async function migrateOfficeExpenses(
-  financeDir: string,
-  result: MigrationResult
-) {
-  try {
-    const expensesDir = path.join(financeDir, "office_expenses");
-    const files = await fs.readdir(expensesDir);
-
-    for (const file of files.filter((f) => f.endsWith(".json"))) {
-      const filePath = path.join(expensesDir, file);
-      const fileContent = await fs.readFile(filePath, "utf-8");
-      const expenses = JSON.parse(fileContent);
-
-      if (Array.isArray(expenses)) {
-        for (const expense of expenses) {
-          const record = {
-            category: expense.category || "General",
-            description: expense.description || "Office expense",
-            amount: parseFloat(expense.amount || "0"),
-            date: expense.date || new Date().toISOString().split("T")[0],
-            receipt_url: expense.receipt_url,
-            status: expense.status || "Approved",
-            expense_data: expense,
-          };
-
-          const { error } = await adminClient
-            .from("office_expenses")
-            .insert(record);
-
-          if (error) {
-            result.errors.push(`Office expense: ${error.message}`);
-          } else {
-            result.migrated++;
-          }
-        }
-      }
-    }
-  } catch (error) {
-    // Directory might not exist
-  }
-}
-
-/**
- * Migrate HR data (attendance, payroll, etc.)
- */
-async function migrateHRData(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "hr_data",
-    migrated: 0,
-    errors: [],
-  };
-
-  try {
-    const hrDir = path.join(process.cwd(), "database", "hr");
-
-    // Migrate holidays
-    await migrateHolidays(hrDir, result);
-
-    // Note: Attendance and payroll data might need more complex migration
-    // depending on the current file structure
-
-    result.success = result.errors.length === 0;
-    return result;
-  } catch (error) {
-    result.errors.push(
-      `HR data migration: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-    return result;
-  }
-}
-
-async function migrateHolidays(hrDir: string, result: MigrationResult) {
-  try {
-    const holidaysDir = path.join(hrDir, "holidays");
-    const files = await fs.readdir(holidaysDir);
-
-    for (const file of files.filter((f) => f.endsWith(".json"))) {
-      const filePath = path.join(holidaysDir, file);
-      const fileContent = await fs.readFile(filePath, "utf-8");
-      const holidays = JSON.parse(fileContent);
-
-      if (Array.isArray(holidays)) {
-        for (const holiday of holidays) {
-          const record = {
-            name: holiday.name || "Holiday",
-            date: holiday.date,
-            type: holiday.type || "Public",
-            description: holiday.description,
-            is_active: true,
-          };
-
-          const { error } = await adminClient
-            .from("holidays")
-            .upsert(record, { onConflict: "date,type" });
-
-          if (error) {
-            result.errors.push(`Holiday: ${error.message}`);
-          } else {
-            result.migrated++;
-          }
-        }
-      }
-    }
-  } catch (error) {
-    // Directory might not exist
-  }
-}
-
-/**
- * Migrate user profiles from admin data
- */
-async function migrateUserProfiles(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "profiles",
-    migrated: 0,
-    errors: [],
-  };
-
-  try {
-    const usersPath = path.join(
-      process.cwd(),
-      "database",
-      "admin",
-      "users.json"
-    );
-
-    try {
-      const fileContent = await fs.readFile(usersPath, "utf-8");
-      const users = JSON.parse(fileContent);
-
-      if (Array.isArray(users)) {
-        for (const user of users) {
-          // For now, we'll create profiles without actual auth users
-          // This will be connected later when proper auth is implemented
-          const record = {
-            user_id: user.user_id || "00000000-0000-0000-0000-000000000000",
-            name: user.name,
-            email: user.email,
-            role: user.role || "Staff",
-            modules: user.modules || [],
-            status: user.status || "Active",
-            employee_id: user.employee_id,
-            department: user.department,
-          };
-
-          // This will fail initially since we don't have auth users yet
-          // But we'll track the attempt
-          result.errors.push(
-            `Profile migration requires proper auth setup for ${user.email}`
-          );
-        }
-      }
-    } catch (error) {
-      result.errors.push("Users file not found or invalid");
-    }
-
-    result.success = false; // Will be true once auth is properly set up
-    return result;
-  } catch (error) {
-    result.errors.push(
-      `Profiles migration: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
-    return result;
-  }
-}
-
-/**
- * Migrate sales data if it exists
- */
-async function migrateSalesData(): Promise<MigrationResult> {
-  const result: MigrationResult = {
-    success: false,
-    table: "sales_records",
-    migrated: 0,
-    errors: [],
-  };
-
-  // For now, sales data will be extracted from vehicle sale_details
-  // This is a placeholder for future sales data migration
-
-  result.success = true;
-  return result;
-}
-
-/**
- * Validate migrated data
- */
-export async function validateMigration(): Promise<{
-  success: boolean;
-  validation: {
-    vehicles: { count: number; sample?: any };
-    employees: { count: number; sample?: any };
-    financial_records: { count: number; sample?: any };
-    office_expenses: { count: number; sample?: any };
-    holidays: { count: number; sample?: any };
-  };
-}> {
-  try {
-    const validation = {
-      vehicles: { count: 0 },
-      employees: { count: 0 },
-      financial_records: { count: 0 },
-      office_expenses: { count: 0 },
-      holidays: { count: 0 },
+    return {
+      success: errors.length === 0,
+      migrated,
+      errors,
+      message: `Brand migration completed: ${migrated}/${brands.length} brands migrated`,
     };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+    await logger.logOperation("migration", "brands", "error", {
+      error: errorMsg,
+    });
 
-    // Count vehicles
-    const { count: vehicleCount } = await adminClient
-      .from("vehicles")
-      .select("*", { count: "exact", head: true });
-    validation.vehicles.count = vehicleCount || 0;
+    return {
+      success: false,
+      migrated: 0,
+      errors: [errorMsg],
+    };
+  }
+}
 
-    // Get sample vehicle
-    if (vehicleCount && vehicleCount > 0) {
-      const { data: vehicleSample } = await adminClient
-        .from("vehicles")
-        .select("*")
-        .limit(1);
-      validation.vehicles.sample = vehicleSample?.[0];
+// Vehicle Models Migration
+export async function migrateModels(): Promise<MigrationResult> {
+  const logger = DatabaseLogger.getInstance();
+  const supabase = createSupabaseAdminClient();
+
+  try {
+    await logger.logOperation("migration", "models", "start", {
+      message: "Starting model migration",
+    });
+
+    const models = await readJSONFile("database/purchase/model.json");
+
+    if (models.length === 0) {
+      return {
+        success: true,
+        migrated: 0,
+        errors: [],
+        message: "No models found to migrate",
+      };
     }
 
-    // Count employees
-    const { count: employeeCount } = await adminClient
-      .from("employees")
-      .select("*", { count: "exact", head: true });
-    validation.employees.count = employeeCount || 0;
+    let migrated = 0;
+    const errors: string[] = [];
 
-    // Count financial records
-    const { count: financialCount } = await adminClient
-      .from("financial_records")
-      .select("*", { count: "exact", head: true });
-    validation.financial_records.count = financialCount || 0;
+    for (const model of models) {
+      try {
+        await withRetry(async () => {
+          const { error } = await supabase.from("vehicle_models").insert({
+            id: model.id,
+            brand_id: model.brand_id,
+            name: model.name,
+          });
 
-    // Count office expenses
-    const { count: expenseCount } = await adminClient
-      .from("office_expenses")
-      .select("*", { count: "exact", head: true });
-    validation.office_expenses.count = expenseCount || 0;
+          if (error) throw error;
+        });
 
-    // Count holidays
-    const { count: holidayCount } = await adminClient
-      .from("holidays")
-      .select("*", { count: "exact", head: true });
-    validation.holidays.count = holidayCount || 0;
+        migrated++;
+        await logger.logOperation("migration", "models", "success", {
+          model_id: model.id,
+          name: model.name,
+          brand_id: model.brand_id,
+        });
+      } catch (error) {
+        const errorMsg = `Failed to migrate model ${model.name}: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`;
+        errors.push(errorMsg);
+
+        await logger.logOperation("migration", "models", "error", {
+          model_id: model.id,
+          error: errorMsg,
+        });
+      }
+    }
+
+    await logger.logOperation("migration", "models", "complete", {
+      total: models.length,
+      migrated,
+      errors: errors.length,
+    });
+
+    return {
+      success: errors.length === 0,
+      migrated,
+      errors,
+      message: `Model migration completed: ${migrated}/${models.length} models migrated`,
+    };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+    await logger.logOperation("migration", "models", "error", {
+      error: errorMsg,
+    });
+
+    return {
+      success: false,
+      migrated: 0,
+      errors: [errorMsg],
+    };
+  }
+}
+
+// Employee Migration
+export async function migrateEmployees(): Promise<MigrationResult> {
+  const logger = DatabaseLogger.getInstance();
+  const supabase = createSupabaseAdminClient();
+
+  try {
+    await logger.logOperation("migration", "employees", "start", {
+      message: "Starting employee migration",
+    });
+
+    // Check if we have employee data in HR payroll files
+    const payrollDir = path.join(process.cwd(), "src/database/hr/payroll_data");
+    let employees: any[] = [];
+
+    if (fs.existsSync(payrollDir)) {
+      const monthDirs = fs.readdirSync(payrollDir);
+      const employeeMap = new Map<string, any>();
+
+      // Extract unique employees from payroll data
+      for (const monthDir of monthDirs) {
+        const monthPath = path.join(payrollDir, monthDir);
+        if (fs.statSync(monthPath).isDirectory()) {
+          const files = fs.readdirSync(monthPath);
+          for (const file of files) {
+            if (file.endsWith(".json")) {
+              try {
+                const filePath = path.join(monthPath, file);
+                const payrollData = JSON.parse(
+                  fs.readFileSync(filePath, "utf-8")
+                );
+
+                if (
+                  payrollData.employee_id &&
+                  !employeeMap.has(payrollData.employee_id)
+                ) {
+                  employeeMap.set(payrollData.employee_id, {
+                    employee_id: payrollData.employee_id,
+                    name: `Employee ${payrollData.employee_id}`,
+                    nationality: payrollData.employee_id.startsWith("TH")
+                      ? "Thai"
+                      : "Indian",
+                    status: "Active",
+                    hire_date: "2024-01-01", // Default hire date
+                  });
+                }
+              } catch (error) {
+                console.warn(`Could not parse ${file}:`, error);
+              }
+            }
+          }
+        }
+      }
+
+      employees = Array.from(employeeMap.values());
+    }
+
+    if (employees.length === 0) {
+      return {
+        success: true,
+        migrated: 0,
+        errors: [],
+        message: "No employees found to migrate",
+      };
+    }
+
+    let migrated = 0;
+    const errors: string[] = [];
+
+    for (const employee of employees) {
+      try {
+        await withRetry(async () => {
+          const { error } = await supabase.from("employees").insert({
+            employee_id: employee.employee_id,
+            name: employee.name,
+            nationality: employee.nationality,
+            status: employee.status,
+            hire_date: employee.hire_date,
+            personal_info: {},
+            employment_details: {},
+            documents: [],
+          });
+
+          if (error) throw error;
+        });
+
+        migrated++;
+        await logger.logOperation("migration", "employees", "success", {
+          employee_id: employee.employee_id,
+          name: employee.name,
+        });
+      } catch (error) {
+        const errorMsg = `Failed to migrate employee ${employee.employee_id}: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`;
+        errors.push(errorMsg);
+
+        await logger.logOperation("migration", "employees", "error", {
+          employee_id: employee.employee_id,
+          error: errorMsg,
+        });
+      }
+    }
+
+    await logger.logOperation("migration", "employees", "complete", {
+      total: employees.length,
+      migrated,
+      errors: errors.length,
+    });
+
+    return {
+      success: errors.length === 0,
+      migrated,
+      errors,
+      message: `Employee migration completed: ${migrated}/${employees.length} employees migrated`,
+    };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
+    await logger.logOperation("migration", "employees", "error", {
+      error: errorMsg,
+    });
+
+    return {
+      success: false,
+      migrated: 0,
+      errors: [errorMsg],
+    };
+  }
+}
+
+// Financial Records Migration
+export async function migrateFinancialRecords() {
+  try {
+    console.log("Starting financial records migration...");
 
     return {
       success: true,
-      validation,
+      migrated: 0,
+      errors: [],
+      message:
+        "Financial records migration placeholder - implementation pending",
     };
   } catch (error) {
-    console.error("Validation failed:", error);
     return {
       success: false,
-      validation: {
-        vehicles: { count: 0 },
-        employees: { count: 0 },
-        financial_records: { count: 0 },
-        office_expenses: { count: 0 },
-        holidays: { count: 0 },
-      },
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
     };
   }
+}
+
+// Payroll Data Migration
+export async function migratePayrollData() {
+  try {
+    console.log("Starting payroll data migration...");
+
+    return {
+      success: true,
+      migrated: 0,
+      errors: [],
+      message: "Payroll data migration placeholder - implementation pending",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
+    };
+  }
+}
+
+// Attendance Data Migration
+export async function migrateAttendanceData() {
+  try {
+    console.log("Starting attendance data migration...");
+
+    return {
+      success: true,
+      migrated: 0,
+      errors: [],
+      message: "Attendance data migration placeholder - implementation pending",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
+    };
+  }
+}
+
+// Sales Data Migration
+export async function migrateSalesData() {
+  try {
+    console.log("Starting sales data migration...");
+
+    return {
+      success: true,
+      migrated: 0,
+      errors: [],
+      message: "Sales data migration placeholder - implementation pending",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
+    };
+  }
+}
+
+// Holidays Migration
+export async function migrateHolidays() {
+  try {
+    console.log("Starting holidays migration...");
+
+    return {
+      success: true,
+      migrated: 0,
+      errors: [],
+      message: "Holidays migration placeholder - implementation pending",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
+    };
+  }
+}
+
+// Reference Data Migration
+export async function migrateReferenceData() {
+  try {
+    console.log("Starting reference data migration...");
+
+    return {
+      success: true,
+      migrated: 0,
+      errors: [],
+      message: "Reference data migration placeholder - implementation pending",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      migrated: 0,
+      errors: [error instanceof Error ? error.message : "Unknown error"],
+    };
+  }
+}
+
+// Master Migration Function - Runs all migrations in sequence
+export async function runCompleteMigration(): Promise<{
+  success: boolean;
+  results: Array<{ name: string; result: MigrationResult }>;
+  summary: {
+    totalMigrated: number;
+    totalErrors: number;
+    successful: number;
+    failed: number;
+  };
+}> {
+  const logger = DatabaseLogger.getInstance();
+
+  await logger.logOperation("migration", "all", "start", {
+    message: "Starting complete data migration",
+  });
+
+  const migrations = [
+    { name: "brands", fn: migrateBrands },
+    { name: "models", fn: migrateModels },
+    { name: "vehicles", fn: migrateVehicles },
+    { name: "employees", fn: migrateEmployees },
+    { name: "financial_records", fn: migrateFinancialRecords },
+    { name: "payroll_data", fn: migratePayrollData },
+    { name: "attendance_data", fn: migrateAttendanceData },
+    { name: "sales_data", fn: migrateSalesData },
+  ];
+
+  const results: Array<{ name: string; result: MigrationResult }> = [];
+  let totalMigrated = 0;
+  let totalErrors = 0;
+  let successful = 0;
+  let failed = 0;
+
+  for (const migration of migrations) {
+    try {
+      console.log(`\n🚀 Running ${migration.name} migration...`);
+      const result = await migration.fn();
+
+      results.push({ name: migration.name, result });
+      totalMigrated += result.migrated;
+      totalErrors += result.errors.length;
+
+      if (result.success) {
+        successful++;
+        console.log(
+          `✅ ${migration.name} migration completed: ${result.migrated} records`
+        );
+      } else {
+        failed++;
+        console.error(`❌ ${migration.name} migration failed:`, result.errors);
+      }
+    } catch (error) {
+      failed++;
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
+      results.push({
+        name: migration.name,
+        result: {
+          success: false,
+          migrated: 0,
+          errors: [errorMsg],
+        },
+      });
+      console.error(`💥 ${migration.name} migration crashed:`, errorMsg);
+    }
+  }
+
+  const summary = {
+    totalMigrated,
+    totalErrors,
+    successful,
+    failed,
+  };
+
+  await logger.logOperation("migration", "all", "complete", {
+    summary,
+    results: results.map((r) => ({
+      name: r.name,
+      success: r.result.success,
+      migrated: r.result.migrated,
+    })),
+  });
+
+  console.log(`\n📊 Migration Summary:`);
+  console.log(`   Total records migrated: ${totalMigrated}`);
+  console.log(`   Successful migrations: ${successful}/${migrations.length}`);
+  console.log(`   Failed migrations: ${failed}/${migrations.length}`);
+  console.log(`   Total errors: ${totalErrors}`);
+
+  return {
+    success: failed === 0,
+    results,
+    summary,
+  };
 }

@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
-import { getAllLogs } from "./admin-actions";
+import { getLogs } from "./admin-actions";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -57,10 +57,10 @@ export async function getAllUserActivity(filters?: {
 
   try {
     // 1. Get file-based activity logs
-    const fileLogs = await getAllLogs();
+    const fileLogs = await getLogs();
     const fileActivities: UnifiedActivity[] = fileLogs.map((log) => ({
       id:
-        log.log_id ||
+        log.id ||
         `file-${log.timestamp}-${Math.random().toString(36).substring(2, 9)}`,
       user_id: log.user_id,
       user_name: log.user_name,

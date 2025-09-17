@@ -60,7 +60,7 @@ export default function LogsPage() {
     action: "",
     fromDate: "",
     toDate: "",
-    source: "",
+    source: "all",
   });
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export default function LogsPage() {
         log.action.toLowerCase().includes(filters.action.toLowerCase())
       );
     }
-    if (filters.source) {
+    if (filters.source && filters.source !== "all") {
       filtered = filtered.filter((log) => log.source === filters.source);
     }
     if (filters.fromDate) {
@@ -391,10 +391,10 @@ export default function LogsPage() {
                   onValueChange={handleSourceFilterChange}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="All sources" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All sources</SelectItem>
+                    <SelectItem value="all">All sources</SelectItem>
                     <SelectItem value="file_log">File Logs</SelectItem>
                     <SelectItem value="database_audit">
                       Database Audit

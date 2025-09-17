@@ -1,9 +1,9 @@
-import { createSupabaseAdmin } from "@/lib/supabase";
+import { createSupabaseAdminClient } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdmin();
+    const supabase = createSupabaseAdminClient();
 
     // Test database connection with a simple query
     const { data, error } = await supabase

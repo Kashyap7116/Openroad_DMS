@@ -7,6 +7,10 @@ import {
 } from "@/lib/supabase-operations";
 import { uploadEmployeeFile } from "@/lib/supabase-storage";
 import { createClient } from "@/lib/supabase/server";
+import {
+  formatValidationErrors,
+  validateEmployeeForm,
+} from "@/lib/validation-schemas";
 import { addLog } from "../../admin/services/admin-actions";
 import { getCurrentUser } from "../../auth/services/supabase-auth-actions";
 import { handleAndLogApiError } from "../../shared/utils/utils";
@@ -217,6 +221,22 @@ export async function saveEmployee(existingId: string | null, formData: any) {
   });
 
   try {
+    // Validate form data using Zod schema
+    console.log("🔍 Validating employee form data...");
+    const validationResult = validateEmployeeForm(formData);
+
+    if (!validationResult.success) {
+      const errorMessages = formatValidationErrors(validationResult.error);
+      console.error("❌ Employee validation failed:", errorMessages);
+      throw new Error(
+        `Validation failed: ${errorMessages
+          .map((err) => err.message)
+          .join(", ")}`
+      );
+    }
+
+    console.log("✅ Employee form validation passed");
+
     console.log("🔐 Getting current user...");
     const user = await getCurrentUser();
     console.log(

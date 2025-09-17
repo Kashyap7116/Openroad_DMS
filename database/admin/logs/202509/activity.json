@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1758096518632",
+    "timestamp": "2025-09-17T08:08:38.633Z",
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Logout",
+    "details": {}
+  },
+  {
+    "id": "1758096534480",
+    "timestamp": "2025-09-17T08:08:54.480Z",
+    "user_id": "1001ae5c-435e-448a-9c3e-57dd4ce05b30",
+    "user_name": "Administrator",
+    "module": "Auth",
+    "action": "Login",
+    "details": {}
+  }
+]

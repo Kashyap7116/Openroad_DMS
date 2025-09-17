@@ -1,6 +1,10 @@
 "use client";
 
 import { useToast } from "@/hooks/use-toast";
+import {
+  formatValidationErrors,
+  validateVehiclePurchaseForm,
+} from "@/lib/validation-schemas";
 import { Button } from "@/modules/shared/components/ui/ui/button";
 import { Card, CardContent } from "@/modules/shared/components/ui/ui/card";
 import { Checkbox } from "@/modules/shared/components/ui/ui/checkbox";
@@ -289,22 +293,55 @@ export function MultiStepPurchaseForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.previousLicensePlate) {
+    // Validate form data using Zod schema
+    const validationResult = validateVehiclePurchaseForm(formData);
+
+    if (!validationResult.success) {
+      const errorMessages = formatValidationErrors(validationResult.error);
       toast({
         title: "Validation Error",
-        description: "Previous License Plate is required.",
+        description: `Please fix the following errors: ${errorMessages
+          .slice(0, 3)
+          .map((err) => err.message)
+          .join(", ")}`,
         variant: "destructive",
       });
-      setCurrentStep(0);
-      return;
-    }
-    if (!formData.mainImage) {
-      toast({
-        title: "Validation Error",
-        description: "Main Vehicle Image is required.",
-        variant: "destructive",
-      });
-      setCurrentStep(6);
+
+      // Log detailed errors for debugging
+      console.error("Form validation errors:", errorMessages);
+
+      // Navigate to the first step with an error
+      const firstErrorField = errorMessages[0]?.field;
+      if (
+        firstErrorField?.includes("previousLicensePlate") ||
+        firstErrorField?.includes("brand") ||
+        firstErrorField?.includes("model")
+      ) {
+        setCurrentStep(0);
+      } else if (
+        firstErrorField?.includes("Price") ||
+        firstErrorField?.includes("payment")
+      ) {
+        setCurrentStep(1);
+      } else if (
+        firstErrorField?.includes("freelancer") ||
+        firstErrorField?.includes("commission")
+      ) {
+        setCurrentStep(2);
+      } else if (
+        firstErrorField?.includes("insurance") ||
+        firstErrorField?.includes("tax")
+      ) {
+        setCurrentStep(3);
+      } else if (firstErrorField?.includes("seller")) {
+        setCurrentStep(4);
+      } else if (
+        firstErrorField?.includes("mainImage") ||
+        firstErrorField?.includes("mileage") ||
+        firstErrorField?.includes("date")
+      ) {
+        setCurrentStep(5);
+      }
       return;
     }
 

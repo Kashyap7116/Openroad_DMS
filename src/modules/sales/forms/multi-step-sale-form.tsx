@@ -2,6 +2,10 @@
 
 import type { VehicleRecord } from "@/app/(dashboard)/purchase/page";
 import { useToast } from "@/hooks/use-toast";
+import {
+  formatValidationErrors,
+  validateSalesForm,
+} from "@/lib/validation-schemas";
 import { Button } from "@/modules/shared/components/ui/ui/button";
 import { Card, CardContent } from "@/modules/shared/components/ui/ui/card";
 import { FileUpload } from "@/modules/shared/components/ui/ui/file-upload";
@@ -220,6 +224,7 @@ export function MultiStepSaleForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!selectedVehicle) {
       toast({
         title: "Validation Error",
@@ -229,13 +234,70 @@ export function MultiStepSaleForm({
       setCurrentStep(0);
       return;
     }
-    if (!formData.buyer.name || !formData.sale_details.sale_price) {
+
+    // Prepare data for validation (map to expected schema format)
+    const validationData = {
+      vehicleId: selectedVehicle.license_plate,
+      customerName: formData.buyer.name,
+      customerPhone: formData.buyer.phone,
+      customerEmail: formData.buyer.email,
+      customerAddress: formData.buyer.address,
+      salePrice: formData.sale_details.sale_price,
+      downPayment: formData.payment_details.down_payment || 0,
+      financingAmount: formData.payment_details.financing_amount || 0,
+      interestRate: formData.payment_details.interest_rate || 0,
+      loanTerm: formData.payment_details.loan_term || 0,
+      monthlyPayment: formData.payment_details.monthly_payment || 0,
+      saleDate: formData.sale_details.date,
+      deliveryDate: formData.sale_details.delivery_date || "",
+      warrantyPeriod: formData.sale_details.warranty || 0,
+      tradeInVehicle: formData.sale_details.trade_in_vehicle || "",
+      tradeInValue: formData.sale_details.trade_in_value || 0,
+      salesPersonId: formData.freelancer.name || "N/A",
+      commission: formData.freelancer.commission || 0,
+      status: formData.status || "Draft",
+      notes: formData.sale_details.notes || "",
+      customerIdProof: formData.buyer.id_proof || null,
+      saleDocuments: formData.documents || [],
+    };
+
+    // Validate form data using Zod schema
+    const validationResult = validateSalesForm(validationData);
+
+    if (!validationResult.success) {
+      const errorMessages = formatValidationErrors(validationResult.error);
       toast({
         title: "Validation Error",
-        description: "Buyer Name and Sale Price are required.",
+        description: `Please fix the following errors: ${errorMessages
+          .slice(0, 3)
+          .map((err) => err.message)
+          .join(", ")}`,
         variant: "destructive",
       });
-      setCurrentStep(1);
+
+      // Log detailed errors for debugging
+      console.error("Form validation errors:", errorMessages);
+
+      // Navigate to the appropriate step based on the first error
+      const firstErrorField = errorMessages[0]?.field;
+      if (
+        firstErrorField?.includes("customer") ||
+        firstErrorField?.includes("vehicleId")
+      ) {
+        setCurrentStep(0);
+      } else if (
+        firstErrorField?.includes("sale") ||
+        firstErrorField?.includes("payment")
+      ) {
+        setCurrentStep(1);
+      } else if (
+        firstErrorField?.includes("commission") ||
+        firstErrorField?.includes("freelancer")
+      ) {
+        setCurrentStep(2);
+      } else if (firstErrorField?.includes("document")) {
+        setCurrentStep(3);
+      }
       return;
     }
 
